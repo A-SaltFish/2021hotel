@@ -17,6 +17,7 @@ import AdminCourse from "./views/admin/AdminCourse";
 import AdminStudentCourse from "./views/admin/AdminStudentCourse";
 import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
+import Index from "./views/Index"
 
 Vue.use(VueRouter);
 
@@ -121,6 +122,11 @@ const routes = [
     path: "/login",
     name: "login",
     component: Login
+  },
+  {
+    path: "/index",
+    name: "index",
+    component: Index
   }
 ];
 
