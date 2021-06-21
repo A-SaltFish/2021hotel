@@ -57,7 +57,6 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 50px;
   padding: 10px;
 }
 
@@ -68,7 +67,7 @@ img {
 .logo {
   display: flex;
   justify-content: space-between;
-  margin: 0 25px;
+  margin: 0 25px ;
 }
 
 .login{
