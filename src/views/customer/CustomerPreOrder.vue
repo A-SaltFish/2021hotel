@@ -13,6 +13,31 @@
         <el-collapse v-model="activeOrder">
           <el-collapse-item name="1">
             <template slot="title">
+              待支付 Waiting For Pay<i class="el-icon-bank-card"></i>
+            </template>
+            <el-collapse v-model="payingOrder" accordion style="width:90%;padding-left:5%">
+              <div v-for="(odata,index) in payingOrderData" :key="index" >
+                <el-collapse-item v-bind:name="odata.index" >
+                  <!--订单详细内容-->
+                  <div slot="title" style="background:#F7F7F7;padding-left:2%;
+                      width:100%;font-weight: bolder;color:#DABCE6;font-size:1.5em">
+                    <span style="color:#CABAA6">NO.{{odata.index}} OrderId：</span>{{odata.id}}
+                  </div>
+                  <div v-for="item in odata.data" :key="item.title">
+                    <el-form label-width="30%"  style="background:#FCFCFC;width:90%;margin:auto">
+                      <el-form-item><div slot="label" style="font-size:1.3em;font-weight:bolder">{{item.title}}</div>
+                        <el-row>{{item.content}}</el-row>
+                      </el-form-item>
+                    </el-form>
+                  </div>
+                  <el-button type="primary" plain @click="pay(odata.id)" style="margin-left: 20%">前往支付</el-button>
+                  <el-button type="danger" plain @click="refund(odata.id)" style="margin-left: 20%">取消订单</el-button>
+                </el-collapse-item>
+              </div>
+            </el-collapse>
+          </el-collapse-item>
+          <el-collapse-item name="2">
+            <template slot="title">
               进行中 Processing<i class="el-icon-loading"></i>
             </template>
             <el-collapse v-model="ongoingOrder" accordion style="width:90%;padding-left:5%">
@@ -23,27 +48,38 @@
                       width:100%;font-weight: bolder;color:#DABCE6;font-size:1.5em">
                         <span style="color:#CABAA6">NO.{{odata.index}} OrderId：</span>{{odata.id}}
                       </div>
-                    <tamplate v-for="item in odata.data" :key="item">
-                      <el-form ref="form" :model="form" label-width="30%"  style="background:#FCFCFC;width:90%;margin:auto">
+                    <div v-for="item in odata.data" :key="item.title">
+                      <el-form label-width="30%"  style="background:#FCFCFC;width:90%;margin:auto">
                         <el-form-item><div slot="label" style="font-size:1.3em;font-weight:bolder">{{item.title}}</div>
                           <el-row>{{item.content}}</el-row>
                         </el-form-item>
                       </el-form>
-                    </tamplate>
-                  <el-button type="primary" plain style="margin-left: 40%" @click="deleteItem(odata.id)">退单</el-button>
+                    </div>
                 </el-collapse-item>
               </div>
             </el-collapse>
           </el-collapse-item>
-          <el-collapse-item v-model="waitOrder" name="2">
+          <el-collapse-item name="3">
             <template slot="title">
-              待评价 Waiting<i class="el-icon-loading"></i>
+              待评价 Waiting For Comment<i class="el-icon-chat-line-round"></i>
             </template>
-            <el-collapse v-model="processingOrder" accordion style="width:90%;padding-left:5%">
-              <el-collapse-item title="订单1" name="1">
-                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
-              </el-collapse-item>
+            <el-collapse v-model="commentOrder" accordion style="width:90%;padding-left:5%">
+              <div v-for="(odata,index) in waitcommentOrderData" :key="index" >
+                <el-collapse-item v-bind:name="odata.index" >
+                  <!--订单详细内容-->
+                  <div slot="title" style="background:#F7F7F7;padding-left:2%;
+                      width:100%;font-weight: bolder;color:#DABCE6;font-size:1.5em">
+                    <span style="color:#CABAA6">NO.{{odata.index}} OrderId：</span>{{odata.id}}
+                  </div>
+                  <div v-for="item in odata.data" :key="item.title">
+                    <el-form label-width="30%"  style="background:#FCFCFC;width:90%;margin:auto">
+                      <el-form-item><div slot="label" style="font-size:1.3em;font-weight:bolder">{{item.title}}</div>
+                        <el-row>{{item.content}}</el-row>
+                      </el-form-item>
+                    </el-form>
+                  </div>
+                </el-collapse-item>
+              </div>
             </el-collapse>
           </el-collapse-item>
         </el-collapse>
@@ -53,92 +89,92 @@
 </template>
 
 <script>
-import * as api from "../../api/student/course";
+import * as api from "../../api/student/preOrder";
 
 export default {
   name: "StudentCourse",
   data() {
     return {
       tableData: [],
+      //控制小折叠
+      payingOrder:"1",
       ongoingOrder: '1',
-      waitOrder:'1',
-      activeOrder:'1',
+      commentOrder:"1",
+      //控制大折叠
+      activeOrder:"1",
       orderLabel: [
-      "酒店名称：",
-      "房间类型：",
-      "创建时间：",
-      "订单金额：",
-      "订单状态：",
-      "用户ID：",
-      "商家电话："
-    ],
-      ongoingOrderData:[
-        { index:"1",
-          id:"124346525",
-          data:[{
-            title:"酒店名称：",
-            content:"儒雅随和大酒店"
-          }, {
-            title:"房间类型：",
-            content:"你再骂总统套房"
-          },{
-            title:"创建时间：",
-            content:"2021-6-21"
-          },{
-            title:"订单金额：",
-            content:"993"
-          },{
-            title:"订单状态：",
-            content:"已付款"
-          },{
-            title:"用户ID：",
-            content:"114514"
-          },{
-            title:"商家电话：",
-            content:"134765204112"
-          }
-          ]
-        },
-        { index:"2",
-          id:"34653",
-          data:[{
-            title:"酒店名称：",
-            content:"文明大酒店"
-          }, {
-            title:"房间类型：",
-            content:"你的态度能不能好一点套房"
-          },{
-            title:"创建时间：",
-            content:"2021-6-21"
-          },{
-            title:"订单金额：",
-            content:"993"
-          },{
-            title:"订单状态：",
-            content:"已付款"
-          },{
-            title:"用户ID：",
-            content:"114514"
-          },{
-            title:"商家电话：",
-            content:"134765204112"
-          }
-          ]
+        {tindex:"hotelName",
+          tname:"酒店名称："
+        },{tindex:"roomName",
+          tname:"房间类型："
+        },{tindex:"cTime",
+          tname:"创建时间："
+        },{tindex:"orderCost",
+          tname:"订单金额："
+        },{tindex:"status",
+          tname:"订单状态："
+        },{tindex:"customerId",
+          tname:"用户ID："
+        },{tindex:"hotelTel",
+          tname:"商家电话："
         }
-      ]
+    ],
+      payingOrderData:[], //待支付订单
+      ongoingOrderData:[],  //正在进行中的订单
+      waitcommentOrderData:[], //待评价的订单
     };
   },
   methods: {
     getList() {
       api.list().then(res => {
         this.tableData = res;
+        this.payingOrderData=[];
+        this.ongoingOrderData=[];
+        this.waitcommentOrderData=[];
+        let pindex=1,oindex=1,windex=1;
+        for(let i=0;i<this.tableData.length;i++){
+          let odata=[];
+          let oid=this.tableData[i]["orderId"];
+          for(let j=0;j<7;j++){
+            odata.push({title:this.orderLabel[j].tname,content:this.tableData[i][this.orderLabel[j].tindex]})
+          }
+          if(this.tableData[i]["status"]==="0") {
+            this.payingOrderData.push({index: pindex, id: oid, data: odata});
+            pindex=pindex+1;
+          }
+          else if(this.tableData[i]["status"]==="1") {
+            this.ongoingOrderData.push({index: pindex, id: oid, data: odata});
+            oindex=oindex+1;
+          }
+          else {
+            this.waitcommentOrderData.push({index: windex, id: oid, data: odata});
+            windex=windex+1;
+          }
+        }
       });
     },
-    deleteItem(orderId) {
-      alert(orderId);
-      api.deleteItem(orderId).then(() => {
-        this.$message.success("退课成功!");
-        this.getList();
+    pay(orderId){
+      alert("前往支付订单号为"+orderId+"的订单？");
+      alert("哎嘿，假的，支付功能还没做哦~");
+    },
+    refund(orderId) {
+      this.$confirm('您真的要取消单号为:'+orderId+'的订单吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        api.refund(orderId).then(() => {
+          this.$message({
+            type: 'success',
+            message: '退单成功！!'
+          });
+          this.getList();
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '退单取消！'
+        });
       });
     }
   },
@@ -149,19 +185,8 @@ export default {
 </script>
 
 <style scoped>
-  .order-font{
-    color:#DABCE6;
-    font-weight:bolder;
-    font-size:1.5em;
-    letter-spacing:1px;
-    background:#F7F7F7;
-    padding-left:1em;
-    border-radius:0.5em;
-    border:1px dotted grey;
-    height:70%;
+  .item {
+    margin-top: 10px;
+    margin-right: 40px;
   }
-  .order-font:hover{
-    background:#C7F7F7;
-  }
-
 </style>

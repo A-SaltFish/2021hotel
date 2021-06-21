@@ -1,3 +1,3 @@
-import * as courseApi from "./course";
+import * as courseApi from "./preOrder";
 
 export const list = () => courseApi.list();
