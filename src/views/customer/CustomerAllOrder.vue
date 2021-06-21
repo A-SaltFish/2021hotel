@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-fa fa-book"></i> 选修课程
+          <i class="el-icon-fa fa-book"></i> 历史订单
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -14,15 +14,15 @@
           <el-col :offset="15" :span="3">
             <el-input
               @keyup.enter.native="query"
-              placeholder="课程名"
-              v-model="queryForm.courseName"
+              placeholder="订单ID"
+              v-model="queryForm.customerId"
             />
           </el-col>
           <el-col :span="3">
             <el-input
               @keyup.enter.native="query"
-              placeholder="教师名"
-              v-model="queryForm.teacherName"
+              placeholder="酒店名"
+              v-model="queryForm.hotelName"
             />
           </el-col>
           <el-col :span="3">
@@ -47,25 +47,39 @@
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="课程Id" prop="courseId" />
-          <el-table-column label="课程名" prop="courseName" width="180px" />
-          <el-table-column label="教师" prop="teacherName" />
-          <el-table-column label="学分" prop="credit" />
-          <el-table-column
-            align="center"
-            label="上课时间"
-            prop="time"
-            width="130px"
-          />
-          <el-table-column label="已选人数" prop="selectedCount" />
-          <el-table-column label="课程容量" prop="maxSize" />
+          <el-table-column label="订单ID" prop="orderId" width="250em"/>
+          <el-table-column label="酒店名" prop="hotelName" width="200em" />
+          <el-table-column label="花费" prop="cost" />
+          <el-table-column align="center"  label="创建时间" prop="createTime" width="250em"/>
+          <el-table-column label="支付方式" prop="payment" width="80em"/>
+          <el-table-column label="订单状态" prop="status" width="80em"/>
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
               <el-button
-                @click="select(scope.row.courseId)"
+                      @click="showOrder(scope.row.orderId)"
+                      size="mini"
+                      type="primary"
+                      icon="el-icon-edit" circle>
+              </el-button>
+              <el-dialog title="订单详情" :visible.sync="dialogTableVisible">
+                <div style="background-color:#E8F8FF;padding:1em">
+                  <div style="child-align:left;border:2px solid #91C9E8" v-for="(item,index) of tableItems" :key="index">
+                    <el-row :gutter="10">
+                      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11" style="width:30%">
+                        <div class="grid-content bg-purple">{{item.text}}</div></el-col>
+                      <el-col :xs="4" :sm="6" :md="8" :lg="9" :xl="11" style="width:69%">
+                        <div class="grid-content">{{item.data}}</div></el-col>
+                    </el-row>
+                  </div>
+                </div>
+              </el-dialog>
+              <el-button
+                @click="deleteOrder(scope.row.orderId)"
                 size="mini"
                 type="success"
-                >选修
+                icon="el-icon-delete"
+                style="background: #48D1CC;border-color:#48D1CC;color:#fff;"
+                circle>
               </el-button>
             </template>
           </el-table-column>
@@ -76,16 +90,35 @@
 </template>
 
 <script>
-import * as api from "../../api/student/courseSelect";
+import * as api from "../../api/student/customerOrderSelect";
 
 export default {
-  name: "StudentCourseSelect",
+  name: "customerOrderSelect",
   data() {
     return {
       queryForm: {
-        courseName: "",
-        teacherName: ""
+        customerId: "",
+        hotelName:"",
       },
+      tableItems:[{
+        text:"订单号", id:1,data:"",title:"orderId"
+      },{
+        text:"酒店名称", id:2,data:"",title:"hotelName"
+      },{
+        text:"房间类型", id:3,data:"",title:"roomName"
+      },{
+        text:"创建时间",id:4,data:"",title:"cTime"
+      },{
+        text:"订单金额",id:5,data:"",title:"orderCost"
+      },{
+        text:"支付方式",id:6,data:"",title:"payment"
+      },{
+        text:"订单状态",id:7,data:"",title:"status"
+      },{
+        text:"用户ID",id:8,data:"",title:"customerId"
+      }],
+      tableItemsData:[],
+      dialogTableVisible: false,
       tableData: [],
       pageSize: api.pageSize,
       pageCount: 1,
@@ -93,30 +126,52 @@ export default {
     };
   },
   methods: {
+    //初始化查询
     query() {
-      api
-        .getPageCount(this.queryForm.courseName, this.queryForm.teacherName)
-        .then(res => {
-          this.pageCount = res;
-          this.pageIndex = 1;
-          this.getPage(1);
-        });
+      api.getPageCount(this.queryForm.customerId).then(res => {
+        this.pageCount = res;
+        this.pageIndex = 1;
+        this.getPage(1);
+      });
     },
+    //获取页面
     getPage(pageIndex) {
-      api
-        .getPage(
-          pageIndex,
-          this.queryForm.courseName,
-          this.queryForm.teacherName
-        )
-        .then(res => {
-          this.tableData = res;
-        });
+      api.getPage(pageIndex, this.queryForm.customerId).then(res => {
+        this.tableData = res;
+      });
     },
-    select(id) {
-      api.select(id).then(() => {
-        this.$message.success("选修成功!");
-        this.getPage(this.pageIndex);
+    //展示订单详细信息
+    showOrder(id) {
+      this.tableItems.forEach((item)=>{
+        item.data="";
+      });
+      this.dialogTableVisible =true;
+      api.showOrder(id).then(res=>{
+        this.tableItemsData=res;
+        this.tableItems.forEach((item)=>{
+          item.data=this.tableItemsData[item.title]
+        });
+      });
+    },
+    //顾客订单不可视化
+    deleteOrder(id) {
+      this.$confirm('此操作将永久删除该记录'+id+', 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        api.deleteOrder(id).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.getPage(this.pageIndex);
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
       });
     }
   },
@@ -126,4 +181,22 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple {
+    background: #B4DCED;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    padding-top:5%;
+    font-weight: bolder;
+    font-size:16px;
+    margin:auto;
+    min-height: 3em;
+  }
+
+</style>

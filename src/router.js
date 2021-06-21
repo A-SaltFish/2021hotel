@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Container from "./views/Container.vue";
 import Login from "./views/Login";
-import CustomerAllOrder from "./views/customer/CustomerAllOrder";
+import customerOrderSelect from "./views/customer/CustomerAllOrder";
 import CustomerInfo from "./views/customer/CustomerInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
 import TeacherCourse from "./views/teacher/TeacherCourse";
@@ -14,7 +14,7 @@ import AdminClass from "./views/admin/AdminClass";
 import AdminStudent from "./views/admin/AdminStudent";
 import AdminTeacher from "./views/admin/AdminTeacher";
 import AdminCourse from "./views/admin/AdminCourse";
-import AdminStudentCourse from "./views/admin/AdminStudentCourse";
+import AdminCustomerOrder from "./views/admin/AdminCustomerOrder";
 import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
 
@@ -36,7 +36,7 @@ const routes = [
       {
         path: "/customer/order/all",
         name: "customer-all-order",
-        component: CustomerAllOrder
+        component: customerOrderSelect
       },
       //用户订单
       {
@@ -108,7 +108,7 @@ const routes = [
       {
         path: "/admin/student/course",
         name: "admin-student-course",
-        component: AdminStudentCourse
+        component: AdminCustomerOrder
       },
       {
         path: "/admin/admin",
