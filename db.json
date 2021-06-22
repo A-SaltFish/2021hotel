@@ -1,0 +1,16 @@
+{
+  "citys": [
+    {
+      "name": "北京",
+      "id": 1
+    },
+    {
+      "name": "chengdu",
+      "id": 2
+    },
+    {
+      "name": "mixuebingcheng",
+      "id": 3
+    }
+  ]
+}
