@@ -7,8 +7,8 @@ import CustomerInfo from "./views/customer/CustomerInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
 import HotelInfo from "./views/manager/HotelInfo";
 import BreakfastInfo from "./views/manager/BreakfastInfo";
-import TeacherCourse from "./views/manager/TeacherCourse";
-import TeacherTimetable from "./views/manager/TeacherTimetable";
+import HotelPreOrder from "./views/manager/HotelPreOrder";
+import TeacherTimetable from "./views/manager/HotelAllOrder";
 import TeacherGrade from "./views/manager/TeacherGrade";
 import AdminDepartment from "./views/admin/AdminDepartment";
 import AdminMajor from "./views/admin/AdminMajor";
@@ -60,9 +60,9 @@ const routes = [
       },
         //经理
       {
-        path: "/manager/course",
-        name: "teacher-course",
-        component: TeacherCourse
+        path: "/manager/hotel/preorder",
+        name: "pre-order",
+        component: HotelPreOrder
       },
       {
         path: "/manager/timetable",

@@ -90,7 +90,7 @@
 </template>
 
 <script>
-  import * as api from "../../api/manager/breakfas";
+  import * as api from "../../api/manager/breakfast";
 
   export default {
     name: "customerOrderSelect",

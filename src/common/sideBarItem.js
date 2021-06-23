@@ -41,7 +41,7 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-book",
-    index: "/manager/course",
+    index: "/manager/hotel/preorder",
     title: "酒店订单",
     userType: UserType.manager,
     permission: Permission.no

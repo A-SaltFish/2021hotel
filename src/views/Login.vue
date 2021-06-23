@@ -28,9 +28,9 @@
 
         <el-form-item prop="userType">
           <el-radio-group v-model="formData.userType">
-            <el-radio label="1">学生</el-radio>
-            <el-radio label="2">教师</el-radio>
-            <el-radio label="3">教务管理员</el-radio>
+            <el-radio label="1">顾客</el-radio>
+            <el-radio label="2">酒店经理</el-radio>
+            <el-radio label="3">管理员</el-radio>
           </el-radio-group>
         </el-form-item>
 
