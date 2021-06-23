@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import * as api from "../../api/teacher/course";
+import * as api from "../../api/manager/course";
 
 export default {
   name: "TeacherCourse",

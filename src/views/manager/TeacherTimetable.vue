@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import * as api from "../../api/teacher/timetable";
+import * as api from "../../api/manager/timetable";
 import TimeTable from "../../components/TimeTable";
 
 export default {

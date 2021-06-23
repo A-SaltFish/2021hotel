@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import * as api from "../../api/teacher/hotelinfo";
+import * as api from "../../api/manager/hotelinfo";
 
 export default {
   name: "HotelInfo",

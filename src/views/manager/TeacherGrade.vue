@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import * as api from "../../api/teacher/grade";
+import * as api from "../../api/manager/grade";
 
 export default {
   name: "TeacherGrade",

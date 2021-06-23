@@ -4,8 +4,9 @@ import Container from "./views/Container.vue";
 import Login from "./views/Login";
 import customerOrderSelect from "./views/customer/CustomerAllOrder";
 import CustomerInfo from "./views/customer/CustomerInfo";
-import HotelInfo from "./views/manager/HotelInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
+import HotelInfo from "./views/manager/HotelInfo";
+import BreakfastInfo from "./views/manager/BreakfastInfo";
 import TeacherCourse from "./views/manager/TeacherCourse";
 import TeacherTimetable from "./views/manager/TeacherTimetable";
 import TeacherGrade from "./views/manager/TeacherGrade";
@@ -73,10 +74,17 @@ const routes = [
         name: "teacher-grade",
         component: TeacherGrade
       },
+        //酒店信息
       {
         path: "/manager/hotel/info",
         name: "hotel-info",
         component: HotelInfo
+      },
+        //酒店早餐
+      {
+        path: "/manager/hotel/breakfast",
+        name: "hotel-breakfast",
+        component: BreakfastInfo
       },
       {
         path: "/admin",
