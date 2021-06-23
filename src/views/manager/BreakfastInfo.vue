@@ -1,0 +1,92 @@
+<template>
+  <div class="info-wrap">
+    <div class="crumbs">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item>
+          <i class="el-icon-fa fa-id-badge"></i> 酒店信息
+        </el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
+
+    <div class="container">
+      <el-form :model="entityForm" class="info-form" label-width="30%">
+        <el-form-item label="酒店ID">
+          <el-input disabled v-model="entityForm.number"></el-input>
+        </el-form-item>
+        <el-form-item label="酒店名称">
+          <el-input v-model="entityForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="酒店售后电话">
+          <el-input v-model="entityForm.tel"></el-input>
+        </el-form-item>
+        <el-form-item label="酒店售后邮箱">
+          <el-input v-model="entityForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="酒店开店日">
+          <el-date-picker
+            format="yyyy-MM-dd"
+            placeholder="选择生日"
+            type="date"
+            v-model="entityForm.birthday"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="当前是否营业">
+          <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949">
+          </el-switch>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input type="password" v-model="entityForm.password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="update" type="primary">确认更新</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script>
+import * as api from "../../api/teacher/hotelinfo";
+
+export default {
+  name: "HotelInfo",
+  data() {
+    return {
+      entityForm: {
+        number: "",
+        name: "",
+        tel: "",
+        email: "",
+        birthday: "",
+        sex: "",
+        password: null
+      },
+      value:true
+    };
+  },
+  methods: {
+    get() {
+      api.get().then(res => {
+        this.entityForm = res;
+      });
+    },
+    update() {
+      api.update(this.entityForm).then(() => {
+        this.$message.success("更新信息成功!");
+      });
+    }
+  },
+  created() {
+    this.get();
+  }
+};
+</script>
+
+<style scoped>
+.info-form {
+  min-width: 400px;
+  width: 35%;
+  margin: auto;
+}
+</style>

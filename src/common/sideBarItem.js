@@ -34,30 +34,44 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-bar-chart",
-    index: "/teacher",
-    title: "教师首页",
-    userType: UserType.teacher,
+    index: "/manager",
+    title: "酒店管理",
+    userType: UserType.manager,
     permission: Permission.no
   },
   {
     icon: "el-icon-fa fa-book",
-    index: "/teacher/course",
-    title: "授课查询",
-    userType: UserType.teacher,
+    index: "/manager/course",
+    title: "酒店订单",
+    userType: UserType.manager,
     permission: Permission.no
   },
   {
     icon: "el-icon-fa fa-table",
-    index: "/teacher/timetable",
-    title: "教师课表",
-    userType: UserType.teacher,
+    index: "/manager/timetable",
+    title: "历史订单",
+    userType: UserType.manager,
     permission: Permission.no
   },
   {
     icon: "el-icon-fa fa-edit",
-    index: "/teacher/grade",
-    title: "成绩录入",
-    userType: UserType.teacher,
+    index: "/manager/grade",
+    title: "售后管理",
+    userType: UserType.manager,
+    permission: Permission.no
+  },
+  {
+    icon: "el-icon-fa fa-edit",
+    index: "/manager/grade",
+    title: "早餐信息",
+    userType: UserType.manager,
+    permission: Permission.no
+  },
+  {
+    icon: "el-icon-fa fa-edit",
+    index: "/manager/hotel/info",
+    title: "酒店信息",
+    userType: UserType.manager,
     permission: Permission.no
   },
   {

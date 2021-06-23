@@ -28,7 +28,7 @@ export default {
     redirectHome(userType) {
       if (userType === UserType.student) {
         this.$router.push({ name: "student-home" });
-      } else if (userType === UserType.teacher) {
+      } else if (userType === UserType.manager) {
         this.$router.push({ name: "teacher-home" });
       } else if (userType === UserType.admin) {
         this.$router.push({ name: "admin-home" });

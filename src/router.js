@@ -4,10 +4,11 @@ import Container from "./views/Container.vue";
 import Login from "./views/Login";
 import customerOrderSelect from "./views/customer/CustomerAllOrder";
 import CustomerInfo from "./views/customer/CustomerInfo";
+import HotelInfo from "./views/manager/HotelInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
-import TeacherCourse from "./views/teacher/TeacherCourse";
-import TeacherTimetable from "./views/teacher/TeacherTimetable";
-import TeacherGrade from "./views/teacher/TeacherGrade";
+import TeacherCourse from "./views/manager/TeacherCourse";
+import TeacherTimetable from "./views/manager/TeacherTimetable";
+import TeacherGrade from "./views/manager/TeacherGrade";
 import AdminDepartment from "./views/admin/AdminDepartment";
 import AdminMajor from "./views/admin/AdminMajor";
 import AdminClass from "./views/admin/AdminClass";
@@ -50,25 +51,32 @@ const routes = [
         name: "customer-info",
         component: CustomerInfo
       },
+        //经理首页
       {
-        path: "/teacher",
+        path: "/manager",
         name: "teacher-home",
         component: Home
       },
+        //经理
       {
-        path: "/teacher/course",
+        path: "/manager/course",
         name: "teacher-course",
         component: TeacherCourse
       },
       {
-        path: "/teacher/timetable",
+        path: "/manager/timetable",
         name: "teacher-timetable",
         component: TeacherTimetable
       },
       {
-        path: "/teacher/grade",
+        path: "/manager/grade",
         name: "teacher-grade",
         component: TeacherGrade
+      },
+      {
+        path: "/manager/hotel/info",
+        name: "hotel-info",
+        component: HotelInfo
       },
       {
         path: "/admin",
