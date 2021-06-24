@@ -2,7 +2,7 @@
 <div>
   <MyHeadBar/>
   <ImgCarousel/>
-  <SearchBar :citys="citys" :ranks="ranks"/>
+  <SearchBar />
 </div>
 </template>
 
@@ -17,24 +17,8 @@ export default {
     MyHeadBar,
     ImgCarousel,
     SearchBar
-  },
-  data() {
-    return {
-      citys: [],
-      ranks: [1, 2, 3, 4, 5]
-    }
-  },
-  methods:{
-    async fetchCity() {
-      const res = fetch('/api/citys')
-      const data = (await res).json()
-      return data
-    }
-  },
-  async created() {
-    this.citys = await this.fetchCity()
   }
-}
+};
 </script>
 
 <style scoped>

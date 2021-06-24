@@ -20,30 +20,37 @@
       </el-select>
     </div>
     <div class="button">
-      <el-button type="primary" @click="Onclick" >查询</el-button>
+      <el-button type="primary" @click="Onclick">查询</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SearchBar",
-  props:{
-    citys: Array,
-    ranks: Array
-  },
   data() {
     return {
       city: '',
-      rank: ''
+      rank: '',
+      citys: [],
+      ranks: [1, 2, 3, 4, 5]
     }
   },
-  methods:{
-    Onclick(){
-      console.log(this.city, this.rank)
+  methods: {
+    async fetchCitys() {
+      const res = await axios.get("/api/citys");
+      this.citys = res.data;
+    },
+    Onclick() {
+      console.log(this.city, this.rank);
     }
+  },
+  created() {
+    this.fetchCitys();
   }
-}
+};
 </script>
 
 <style scoped>
@@ -55,6 +62,7 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .topic {
   color: white;
   align-self: flex-start;
