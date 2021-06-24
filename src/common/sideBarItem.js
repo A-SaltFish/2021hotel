@@ -42,13 +42,13 @@ SideBarItem.items = [
   {
     icon: "el-icon-fa fa-book",
     index: "/manager/hotel/preorder",
-    title: "酒店订单",
+    title: "当前订单",
     userType: UserType.manager,
     permission: Permission.no
   },
   {
     icon: "el-icon-fa fa-table",
-    index: "/manager/timetable",
+    index: "/manager/hotel/allorder",
     title: "历史订单",
     userType: UserType.manager,
     permission: Permission.no

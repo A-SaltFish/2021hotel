@@ -8,7 +8,7 @@ import CustomerPreOrder from "./views/customer/CustomerPreOrder";
 import HotelInfo from "./views/manager/HotelInfo";
 import BreakfastInfo from "./views/manager/BreakfastInfo";
 import HotelPreOrder from "./views/manager/HotelPreOrder";
-import TeacherTimetable from "./views/manager/HotelAllOrder";
+import HotelAllOrder from "./views/manager/HotelAllOrder";
 import TeacherGrade from "./views/manager/TeacherGrade";
 import AdminDepartment from "./views/admin/AdminDepartment";
 import AdminMajor from "./views/admin/AdminMajor";
@@ -65,9 +65,9 @@ const routes = [
         component: HotelPreOrder
       },
       {
-        path: "/manager/timetable",
-        name: "teacher-timetable",
-        component: TeacherTimetable
+        path: "/manager/hotel/allorder",
+        name: "all-order",
+        component: HotelAllOrder
       },
       {
         path: "/manager/grade",
