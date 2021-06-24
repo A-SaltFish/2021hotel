@@ -20,7 +20,7 @@
       </el-select>
     </div>
     <div class="button">
-      <el-button type="primary" @click="Onclick">查询</el-button>
+      <el-button type="primary" @click="OnClick">查询</el-button>
     </div>
   </div>
 </template>
@@ -43,9 +43,9 @@ export default {
       const res = await axios.get("/api/citys");
       this.citys = res.data;
     },
-    Onclick() {
-      console.log(this.city, this.rank);
-    }
+  OnClick() {
+      this.$emit("search-hotels", this.city);
+  }
   },
   created() {
     this.fetchCitys();

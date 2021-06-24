@@ -12,5 +12,19 @@
       "name": "mixuebingcheng",
       "id": 3
     }
+  ],
+  "hotels": [
+    {
+      "hotel_name": "sdkljfk",
+      "ht_city_id": 1
+    },
+    {
+      "hotel_name": "ddddd",
+      "ht_city_id": 1
+    },
+    {
+      "hotel_name": "nothere",
+      "ht_city_id": 2
+    }
   ]
 }
