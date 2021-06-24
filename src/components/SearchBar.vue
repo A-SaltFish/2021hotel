@@ -8,7 +8,7 @@
         <el-option v-for="item in citys"
                    :key="item.id"
                    :label="item.name"
-                   :value="item.id"></el-option>
+                   :value="item.name"></el-option>
       </el-select>
     </div>
     <div class="select-root">

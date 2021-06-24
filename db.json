@@ -16,15 +16,24 @@
   "hotels": [
     {
       "hotel_name": "sdkljfk",
-      "ht_city_id": 1
+      "ht_city": "北京",
+      "img_link": "https://images.bthhotels.com/motel/M210C8_a.jpg",
+      "rank": 4,
+      "price": 198
     },
     {
       "hotel_name": "ddddd",
-      "ht_city_id": 1
+      "ht_city": "北京",
+      "img_link": "https://images.bthhotels.com/homeinns/021010_a.jpg",
+      "rank": 5,
+      "price": 328
     },
     {
       "hotel_name": "nothere",
-      "ht_city_id": 2
+      "ht_city": "chengdu",
+      "img_link": "../assets/img/hotel2.jpeg",
+      "rank": 5,
+      "price": 328
     }
   ]
 }
