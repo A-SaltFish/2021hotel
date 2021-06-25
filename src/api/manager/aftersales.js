@@ -1,19 +1,15 @@
 import * as ajax from "../../common/ajax";
 
-export const get = id => ajax.pureGet("/manager/aftersales/" + id);
-
-export const update = entity => ajax.put("/manager/aftersales", entity);
-
-export const getPageCount = (orderId,hotelName) =>
+export const getPageCount = (orderId,roomName) =>
   ajax.get("/manager/aftersales/page/count", {
-      managerId: orderId,
-      hotelName:hotelName
+      orderId: orderId,
+      roomName:roomName
   });
 
-export const getPage = (index, orderId,hotelName) =>
+export const getPage = (index, orderId,roomName) =>
   ajax.get("/manager/aftersales/page/" + index, {
       orderId: orderId,
-      hotelName:hotelName
+      roomName:roomName
   });
 
 export const pageSize = 20;

@@ -12,10 +12,10 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :offset="15" :span="3">
-            <el-input @keyup.enter.native="query" placeholder="订单ID" v-model="queryForm.orderId"/>
+            <el-input @keyup.enter.native="query" placeholder="按订单ID" v-model="queryForm.orderId"/>
           </el-col>
           <el-col :span="3">
-            <el-input @keyup.enter.native="query" placeholder="酒店名" v-model="queryForm.hotelName"/>
+            <el-input @keyup.enter.native="query" placeholder="按房间名" v-model="queryForm.roomName"/>
           </el-col>
           <el-col :span="3">
             <el-button @click="query" icon="el-icon-search" type="primary">搜索
@@ -78,7 +78,7 @@
       return {
         queryForm: {
           orderId: "",
-          hotelName:"",
+          roomName:"",
         },
         dialogTableVisible: false,
         tableData: [],
@@ -94,25 +94,23 @@
     methods: {
       //初始化查询
       query() {
-        api.getPageCount(this.queryForm.orderId,this.queryForm.hotelName).then(res => {
-          this.pageCount = res;
-          this.pageIndex = 1;
-          this.getPage(1);
-        });
+        if(isNaN(this.queryForm.orderId)){
+          this.$message("请输入数字!");
+        }
+        else {
+          api.getPageCount(this.queryForm.orderId, this.queryForm.roomName).then(res => {
+            this.pageCount = res;
+            this.pageIndex = 1;
+            this.getPage(1);
+          });
+        }
       },
       //获取页面
       getPage(pageIndex) {
-        api.getPage(pageIndex, this.queryForm.customerId).then(res => {
+        api.getPage(pageIndex, this.queryForm.orderId,this.queryForm.roomName).then(res => {
           this.tableData = res;
           for(let i=0;i<this.tableData.length;i++){
-            switch (this.tableData[i].status) {
-              case 0:this.tableData[i].status="待付款"; break;
-              case 1:this.tableData[i].status="进行中"; break;
-              case 2:this.tableData[i].status="待评价"; break;
-              case 3:this.tableData[i].status="已完成"; break;
-              case 4:this.tableData[i].status="退单中"; break;
-              case 5:this.tableData[i].status="已退单"; break;
-            }
+            this.tableData[i].status="退单中";
           }
         });
       },
