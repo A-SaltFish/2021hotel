@@ -15,31 +15,43 @@
   ],
   "hotels": [
     {
+      "hotel_id": 1,
       "hotel_name": "sdkljfk",
       "ht_city": "北京",
-      "img_link": "https://images.bthhotels.com/motel/M210C8_a.jpg",
+      "img_link": "https://images.bthhotels.com/hotel_img/Z21002_n_1.jpg",
+      "room_img1": "https://images.bthhotels.com/hotel_img/Z21002_n_2.jpg",
+      "room_img2": "https://images.bthhotels.com/hotel_img/Z21002_n_3.jpg",
+      "room_img4": "https://images.bthhotels.com/hotel_img/Z21002_n_3.jpg",
+      "room_img5": "https://images.bthhotels.com/hotel_img/Z21002_n_5.jpg",
+      "room_img6": "https://images.bthhotels.com/hotel_img/Z21002_n_6.jpg",
+      "room_img7": "https://images.bthhotels.com/hotel_img/Z21002_n_7.jpg",
       "rank": 4,
       "price": 198,
       "hotel_longitude": 115.25,
-      "hotel_latitude": 39.06
+      "hotel_latitude": 39.06,
+      "hotel_describe": "全球连锁天上地下无双我最dio大酒店"
     },
     {
+      "hotel_id": 2,
       "hotel_name": "ddddd",
       "ht_city": "北京",
       "img_link": "https://images.bthhotels.com/homeinns/021010_a.jpg",
       "rank": 5,
       "price": 328,
       "hotel_longitude": 115.29,
-      "hotel_latitude": 40.26
+      "hotel_latitude": 40.26,
+      "hotel_describe": "全球连锁天上地下无双我最dio大酒店"
     },
     {
+      "hotel_id": 3,
       "hotel_name": "nothere",
       "ht_city": "chengdu",
       "img_link": "../assets/img/hotel2.jpeg",
       "rank": 5,
       "price": 328,
       "hotel_longitude": 104.04,
-      "hotel_latitude": 30.39
+      "hotel_latitude": 30.39,
+      "hotel_describe": "全球连锁天上地下无双我最dio大酒店"
     }
   ]
 }

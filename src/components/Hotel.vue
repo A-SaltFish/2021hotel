@@ -25,7 +25,7 @@
         </el-row>
         <el-row type="flex" justify="center" align="bottom">
           <el-col :span="6">
-            <el-button>查看详情   ></el-button>
+            <el-button @click="$router.push('/hotel/' + hotel.hotel_id)">查看详情   ></el-button>
           </el-col>
         </el-row>
       </el-aside>

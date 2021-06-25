@@ -20,6 +20,7 @@ import AdminCustomerOrder from "./views/admin/AdminCustomerOrder";
 import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
 import Index from "./views/Index"
+import HotelDetail from "./views/HotelDetail";
 
 Vue.use(VueRouter);
 
@@ -144,6 +145,12 @@ const routes = [
     path: "/index",
     name: "index",
     component: Index
+  },
+  {
+    path: "/hotel/:hotel_id",
+    component: HotelDetail,
+    name: "hotelDetail",
+    props: true
   }
 ];
 
