@@ -19,21 +19,27 @@
       "ht_city": "北京",
       "img_link": "https://images.bthhotels.com/motel/M210C8_a.jpg",
       "rank": 4,
-      "price": 198
+      "price": 198,
+      "hotel_longitude": 115.25,
+      "hotel_latitude": 39.06
     },
     {
       "hotel_name": "ddddd",
       "ht_city": "北京",
       "img_link": "https://images.bthhotels.com/homeinns/021010_a.jpg",
       "rank": 5,
-      "price": 328
+      "price": 328,
+      "hotel_longitude": 115.29,
+      "hotel_latitude": 40.26
     },
     {
       "hotel_name": "nothere",
       "ht_city": "chengdu",
       "img_link": "../assets/img/hotel2.jpeg",
       "rank": 5,
-      "price": 328
+      "price": 328,
+      "hotel_longitude": 104.04,
+      "hotel_latitude": 30.39
     }
   ]
 }

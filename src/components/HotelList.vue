@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-main>
-      <Hotel v-for="hotel in hotels" :key="hotel.hotel_name" :hotel="hotel"/>
+      <Hotel v-for="hotel in hotels" :key="hotel.hotel_name" :hotel="hotel" @update-pos="updatePos"/>
     </el-main>
     <el-aside width="400px">
       <baidu-map class="bm-view" ak="a4bZsXqS2yx7z1VlXaNjI60lbV9DHbYP"
@@ -36,6 +36,9 @@ export default {
       this.mapCenter.lng = 116.404
       this.mapCenter.lat = 39.915
       this.mapZoom = 16
+    },
+    updatePos(lng, lat) {
+      this.mapCenter = {lng: lng, lat: lat}
     }
   }
 }

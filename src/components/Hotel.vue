@@ -8,6 +8,9 @@
       <el-main>
         <el-link class="hotel-name" href="https://element.eleme.io" target="_blank">{{hotel.hotel_name}}</el-link>><br/>
         <p>地址：{{hotel.ht_city}}</p>
+        <el-button @click="$emit('update-pos', hotel.hotel_longitude, hotel.hotel_latitude)">
+          <i class="el-icon-position"></i>获取定位
+        </el-button>
       </el-main>
 
       <el-aside class="right" >
