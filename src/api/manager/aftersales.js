@@ -6,6 +6,16 @@ export const getPageCount = (orderId,roomName) =>
       roomName:roomName
   });
 
+//退款
+export const backRefund=orderId=>ajax.get("/manager/aftersales/refund",{
+    orderId:orderId
+});
+
+//退单仲裁
+export const judge=orderId=>ajax.get("/manager/aftersales/judge",{
+    orderId:orderId
+});
+
 export const getPage = (index, orderId,roomName) =>
   ajax.get("/manager/aftersales/page/" + index, {
       orderId: orderId,

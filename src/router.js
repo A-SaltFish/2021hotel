@@ -6,7 +6,7 @@ import customerOrderSelect from "./views/customer/CustomerAllOrder";
 import CustomerInfo from "./views/customer/CustomerInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
 import HotelInfo from "./views/manager/HotelInfo";
-import BreakfastInfo from "./views/manager/BreakfastInfo";
+import RoomInfo from "./views/manager/RoomInfo";
 import HotelPreOrder from "./views/manager/HotelPreOrder";
 import HotelAllOrder from "./views/manager/HotelAllOrder";
 import HotelAfterSales from "./views/manager/HotelAfterSales";
@@ -83,9 +83,9 @@ const routes = [
       },
         //酒店早餐
       {
-        path: "/manager/hotel/breakfast",
+        path: "/manager/hotel/room",
         name: "hotel-breakfast",
-        component: BreakfastInfo
+        component: RoomInfo
       },
       {
         path: "/admin",

@@ -42,8 +42,8 @@
           <el-table-column label="订单状态" prop="status" width="80em"/>
           <el-table-column align="center" label="操作">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini" @click="showOrder(scope.$index)">查看评价</el-button>
-              <el-button type="success" size="mini" @click="deleteOrder(scope.$index)">联系客户</el-button>
+              <el-button type="primary" size="mini" @click="showOrder(scope.$index)">退单详情</el-button>
+              <el-button type="success" size="mini" @click="contact(scope.$index)">联系客户</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -55,12 +55,12 @@
             <el-form-item label="用户ID">
               <el-input v-model="cid_value" disabled></el-input>
             </el-form-item>
-            <el-form-item label="用户评论">
+            <el-form-item label="退单理由">
               <el-input type="textarea" v-model="comment_value" disabled rows="4"></el-input>
             </el-form-item>
-            <el-form-item label="用户评级">
-              <el-rate v-model="rank_value" disabled show-score text-color="#ff9900" style="margin-top:1em">
-              </el-rate>
+            <el-form-item>
+              <el-button type="primary" size="mini" @click="confrimRefund()" style="margin-left: 5em">确认退款</el-button>
+              <el-button type="warn" size="mini" @click="judgeOrder()" style="margin-left: 5em">退单仲裁</el-button>
             </el-form-item>
           </el-form>
         </el-dialog>
@@ -87,7 +87,6 @@
         pageIndex: 1,
         oid_value:"",
         cid_value:"",
-        rank_value:0,
         comment_value:""
       };
     },
@@ -110,22 +109,64 @@
         api.getPage(pageIndex, this.queryForm.orderId,this.queryForm.roomName).then(res => {
           this.tableData = res;
           for(let i=0;i<this.tableData.length;i++){
-            this.tableData[i].status="退单中";
+            if(this.tableData[i].status===4)
+              this.tableData[i].status="退单中";
+            else this.tableData[i].status="仲裁中";
           }
         });
       },
-      //展示订单详细信息
+      //显示退单详情
       showOrder(id) {
         this.dialogTableVisible =true;
         this.oid_value=this.tableData[id].orderId;
         this.cid_value=this.tableData[id].customerId;
-        if(this.tableData[id].comment!=null)
-          this.comment_value=this.tableData[id].comment;
-        else this.comment_value="暂未评论";
-        if(this.tableData[id].rank!=null)
-          this.rank_value=this.tableData[id].rank;
-        else this.rank_value="暂未评星";
+        if(this.tableData[id].reason!=null)
+          this.comment_value=this.tableData[id].reason;
+        else this.comment_value="无理由";
       },
+      //退款确认
+      confrimRefund() {
+        this.$confirm('确认退单，返回用户金额？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          api.backRefund(this.oid_value).then(() => {
+            this.$message({
+              type: 'success',
+              message: '退款成功!!'
+            });
+            this.getPage(this.pageIndex);
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退款'
+          });
+        });
+      },
+      //退单仲裁
+      judgeOrder(){
+        this.$confirm('确认向管理申请退单仲裁？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          api.judge(this.oid_value).then(() => {
+            this.$message({
+              type: 'success',
+              message: '已申请退单仲裁!!'
+            });
+            this.getPage(this.pageIndex);
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退单仲裁'
+          });
+        });
+      },
+      //显示手机
       showTel(id) {
         this.$notify({
           title: '提示：请保证客户的隐私，勿将手机号码泄露给第三方',
@@ -133,8 +174,8 @@
           duration:7000,
         });
       },
-      //顾客订单不可视化
-      deleteOrder(id) {
+      //联系客户
+      contact(id) {
         this.$confirm('您正在试图查询用户的手机号，您将保证用户隐私的安全, 侵权将受到法律制裁', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',

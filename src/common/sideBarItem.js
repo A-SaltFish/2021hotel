@@ -62,8 +62,8 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-edit",
-    index: "/manager/hotel/breakfast",
-    title: "早餐信息",
+    index: "/manager/hotel/room",
+    title: "房间管理",
     userType: UserType.manager,
     permission: Permission.no
   },
