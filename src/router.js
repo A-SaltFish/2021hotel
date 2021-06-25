@@ -9,7 +9,7 @@ import HotelInfo from "./views/manager/HotelInfo";
 import BreakfastInfo from "./views/manager/BreakfastInfo";
 import HotelPreOrder from "./views/manager/HotelPreOrder";
 import HotelAllOrder from "./views/manager/HotelAllOrder";
-import TeacherGrade from "./views/manager/TeacherGrade";
+import HotelAfterSales from "./views/manager/HotelAfterSales";
 import AdminDepartment from "./views/admin/AdminDepartment";
 import AdminMajor from "./views/admin/AdminMajor";
 import AdminClass from "./views/admin/AdminClass";
@@ -69,10 +69,11 @@ const routes = [
         name: "all-order",
         component: HotelAllOrder
       },
+        //售后
       {
-        path: "/manager/grade",
-        name: "teacher-grade",
-        component: TeacherGrade
+        path: "/manager/aftersales",
+        name: "after-sales",
+        component: HotelAfterSales
       },
         //酒店信息
       {

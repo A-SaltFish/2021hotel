@@ -26,15 +26,14 @@
 
       <el-row justify="center" type="flex">
         <el-pagination :current-page.sync="pageIndex" :page-size="pageSize"
-                :total="pageSize * pageCount" @current-change="getPage"
-                background layout="prev, pager, next"
+                       :total="pageSize * pageCount" @current-change="getPage"
+                       background layout="prev, pager, next"
         >
         </el-pagination>
       </el-row>
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="序号" prop="index" width="80em"/>
           <el-table-column label="订单ID" prop="orderId" width="80em"/>
           <el-table-column label="房间类型" prop="roomType" width="200em" />
           <el-table-column label="当前花费" prop="precost" width="100em" />
@@ -71,7 +70,7 @@
 </template>
 
 <script>
-  import * as api from "../../api/manager/allorder";
+  import * as api from "../../api/manager/aftersales";
 
   export default {
     name: "customerOrderSelect",
@@ -95,7 +94,7 @@
     methods: {
       //初始化查询
       query() {
-        api.getPageCount(this.queryForm.orderId).then(res => {
+        api.getPageCount(this.queryForm.orderId,this.queryForm.hotelName).then(res => {
           this.pageCount = res;
           this.pageIndex = 1;
           this.getPage(1);

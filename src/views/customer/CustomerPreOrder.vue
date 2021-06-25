@@ -143,7 +143,7 @@ export default {
             pindex=pindex+1;
           }
           else if(this.tableData[i]["status"]==="1") {
-            this.ongoingOrderData.push({index: pindex, id: oid, data: odata});
+            this.ongoingOrderData.push({index: oindex, id: oid, data: odata});
             oindex=oindex+1;
           }
           else {

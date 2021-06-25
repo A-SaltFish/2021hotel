@@ -55,7 +55,7 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-edit",
-    index: "/manager/grade",
+    index: "/manager/aftersales",
     title: "售后管理",
     userType: UserType.manager,
     permission: Permission.no
