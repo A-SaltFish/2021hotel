@@ -58,15 +58,19 @@ export default {
     get() {
       api.get().then(res => {
         this.entityForm = res;
-        console.log(this.entityForm);
         if (this.entityForm.isOpen===1)
           this.entityForm.isOpen=true;
         else this.entityForm.isOpen=false;
       });
     },
     update() {
+      if (this.entityForm.isOpen===true)
+        this.entityForm.isOpen=1;
+      else this.entityForm.isOpen=0;
+      console.log(this.entityForm);
       api.update(this.entityForm).then(() => {
         this.$message.success("更新信息成功!");
+        this.get();
       });
     }
   },
