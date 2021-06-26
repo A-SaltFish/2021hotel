@@ -22,11 +22,8 @@
         <el-form-item label="酒店售后电话">
           <el-input v-model="entityForm.tel"></el-input>
         </el-form-item>
-        <el-form-item label="酒店售后邮箱">
-          <el-input v-model="entityForm.email"></el-input>
-        </el-form-item>
         <el-form-item label="当前是否营业">
-          <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949">
+          <el-switch v-model="entityForm.isOpen" active-color="#13ce66" inactive-color="#ff4949">
           </el-switch>
         </el-form-item>
         <el-form-item label="密码">
@@ -48,21 +45,23 @@ export default {
   data() {
     return {
       entityForm: {
-        number: "",
-        name: "",
+        hotelId: "",
+        managerId: "",
         tel: "",
-        email: "",
-        birthday: "",
-        sex: "",
-        password: null
+        name: "",
+        isOpen: true,
+        password: ""
       },
-      value:true
     };
   },
   methods: {
     get() {
       api.get().then(res => {
         this.entityForm = res;
+        console.log(this.entityForm);
+        if (this.entityForm.isOpen===1)
+          this.entityForm.isOpen=true;
+        else this.entityForm.isOpen=false;
       });
     },
     update() {
