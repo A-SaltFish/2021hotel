@@ -11,7 +11,10 @@
     <div class="container">
       <el-form :model="entityForm" class="info-form" label-width="30%">
         <el-form-item label="酒店ID">
-          <el-input disabled v-model="entityForm.number"></el-input>
+          <el-input disabled v-model="entityForm.hotelId"></el-input>
+        </el-form-item>
+        <el-form-item label="经理">
+          <el-input disabled v-model="entityForm.managerId"></el-input>
         </el-form-item>
         <el-form-item label="酒店名称">
           <el-input v-model="entityForm.name"></el-input>
@@ -21,15 +24,6 @@
         </el-form-item>
         <el-form-item label="酒店售后邮箱">
           <el-input v-model="entityForm.email"></el-input>
-        </el-form-item>
-        <el-form-item label="酒店开店日">
-          <el-date-picker
-            format="yyyy-MM-dd"
-            placeholder="选择生日"
-            type="date"
-            v-model="entityForm.birthday"
-          >
-          </el-date-picker>
         </el-form-item>
         <el-form-item label="当前是否营业">
           <el-switch v-model="value" active-color="#13ce66" inactive-color="#ff4949">

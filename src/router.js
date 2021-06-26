@@ -6,7 +6,7 @@ import customerOrderSelect from "./views/customer/CustomerAllOrder";
 import CustomerInfo from "./views/customer/CustomerInfo";
 import CustomerPreOrder from "./views/customer/CustomerPreOrder";
 import HotelInfo from "./views/manager/HotelInfo";
-import RoomInfo from "./views/manager/RoomInfo";
+import RoomInfo from "./views/manager/HotelRoomInfo";
 import HotelPreOrder from "./views/manager/HotelPreOrder";
 import HotelAllOrder from "./views/manager/HotelAllOrder";
 import HotelAfterSales from "./views/manager/HotelAfterSales";
