@@ -10,14 +10,10 @@ import RoomInfo from "./views/manager/HotelRoomInfo";
 import HotelPreOrder from "./views/manager/HotelPreOrder";
 import HotelAllOrder from "./views/manager/HotelAllOrder";
 import HotelAfterSales from "./views/manager/HotelAfterSales";
-import AdminDepartment from "./views/admin/AdminDepartment";
-import AdminMajor from "./views/admin/AdminMajor";
-import AdminClass from "./views/admin/AdminClass";
-import AdminStudent from "./views/admin/AdminStudent";
-import AdminTeacher from "./views/admin/AdminTeacher";
-import AdminCourse from "./views/admin/AdminCourse";
-import AdminCustomerOrder from "./views/admin/AdminCustomerOrder";
-import AdminAdmin from "./views/admin/AdminAdmin";
+import AdminCustomer from "./views/admin/AdminCustomer";
+import AdminManager from "./views/admin/AdminManager";
+import AdminHotel from "./views/admin/AdminHotel";
+import AdminOrder from "./views/admin/AdminOrder";
 import Home from "./views/Home";
 
 Vue.use(VueRouter);
@@ -64,6 +60,7 @@ const routes = [
         name: "pre-order",
         component: HotelPreOrder
       },
+        //酒店全部订单
       {
         path: "/manager/hotel/allorder",
         name: "all-order",
@@ -81,7 +78,7 @@ const routes = [
         name: "hotel-info",
         component: HotelInfo
       },
-        //酒店早餐
+        //酒店房间
       {
         path: "/manager/hotel/room",
         name: "hotel-breakfast",
@@ -92,45 +89,26 @@ const routes = [
         name: "admin-home",
         component: Home
       },
+        //管理员-用户管理
       {
-        path: "/admin/department",
-        name: "admin-department",
-        component: AdminDepartment
+        path: "/admin/customer",
+        name: "admin-customer",
+        component: AdminCustomer
       },
       {
-        path: "/admin/major",
-        name: "admin-major",
-        component: AdminMajor
+        path: "/admin/manager",
+        name: "admin-manager",
+        component: AdminManager
       },
       {
-        path: "/admin/class",
-        name: "admin-class",
-        component: AdminClass
+        path: "/admin/hotel",
+        name: "admin-hotel",
+        component: AdminHotel
       },
       {
-        path: "/admin/student",
-        name: "admin-student",
-        component: AdminStudent
-      },
-      {
-        path: "/admin/teacher",
-        name: "admin-teacher",
-        component: AdminTeacher
-      },
-      {
-        path: "/admin/course",
-        name: "admin-course",
-        component: AdminCourse
-      },
-      {
-        path: "/admin/student/course",
-        name: "admin-student-course",
-        component: AdminCustomerOrder
-      },
-      {
-        path: "/admin/admin",
-        name: "admin-admin",
-        component: AdminAdmin
+        path: "/admin/order",
+        name: "admin-order",
+        component: AdminOrder
       }
     ]
   },
