@@ -25,13 +25,15 @@ export default {
   },
   data() {
     return {
-      hotels:[]
+      hotels:[],
+      date:''
     }
   },
   methods:{
-    async fetchHotels(city){
+    async fetchHotels(city, date){
       const res = await axios.get('/api/hotels?' + new URLSearchParams({ht_city: city}))
       this.hotels = res.data
+      this.date = date
     }
   }
 };

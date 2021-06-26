@@ -32,10 +32,10 @@
     </el-row>
   </div>
 
-  <div class="buttons">
+  <span slot="footer" class="dialog-footer">
     <el-button type="danger">取消</el-button>
     <el-button type="success">确认</el-button>
-  </div>
+  </span>
 </div>
 </template>
 
@@ -62,14 +62,30 @@ export default {
 <style scoped>
 .headBar {
   width: 100%;
-  height: 100px;
-  background-image: url("https://tse4-mm.cn.bing.net/th/id/OIP-C.dhdizGOgXHwFgAxnATC6PwHaE7?pid=ImgDet&rs=1");
-  background-size: cover;
+  height: 60px;
+  background: linen;
   display: flex;
   align-items: center;
+  border-radius: 20px;
+  margin-bottom: 40px;
 }
 .headBar .barElement {
   margin: 20px;
   padding: 5px;
+}
+.el-row {
+  height: 30px ;
+  margin-bottom: 10px;
+}
+.bg-grey {
+  height: 90%;
+  border-radius: 20px;
+  background: #F7F7F7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.el-button {
+  margin: 0 20px
 }
 </style>

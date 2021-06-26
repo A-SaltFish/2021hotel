@@ -62,7 +62,7 @@
     </div>
 
     <el-dialog title="确认订单" :visible.sync="dialogVisable">
-      <OrderInfo :hotel="hotel" :room="bookroom" />
+      <OrderInfo :hotel="hotel" :room="bookroom" center="true" />
     </el-dialog>
   </div>
 
