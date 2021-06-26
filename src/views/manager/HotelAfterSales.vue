@@ -136,6 +136,7 @@
               type: 'success',
               message: '退款成功!!'
             });
+            this.dialogTableVisible=false;
             this.getPage(this.pageIndex);
           });
         }).catch(() => {
