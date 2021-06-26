@@ -53,5 +53,40 @@
       "hotel_latitude": 30.39,
       "hotel_describe": "全球连锁天上地下无双我最dio大酒店"
     }
+  ],
+  "rooms": [
+    {
+      "rm_hotel_id": 1,
+      "room_id": 1,
+      "room_type": "双人间",
+      "room_describe": "蜜雪冰城全天不限量供应",
+      "room_img": "https://images.bthhotels.com/hotel_img/Z21002_n_5.jpg",
+      "room_status": 1,
+      "rm_order_id": 0,
+      "rm_breakfast_type": 1,
+      "room_price": 233
+    },
+    {
+      "rm_hotel_id": 1,
+      "room_id": 2,
+      "room_type": "单人间",
+      "room_describe": "niaiwo, woaini, mixuebingchengtianmimi",
+      "room_img": "https://images.bthhotels.com/hotel_img/Z21002_n_5.jpg",
+      "room_status": 1,
+      "rm_order_id": 0,
+      "rm_breakfast_type": 0,
+      "room_price": 233
+    },
+    {
+      "rm_hotel_id": 1,
+      "room_id": 3,
+      "room_type": "双人间",
+      "room_describe": "蜜雪冰城全天不限量供应",
+      "room_img": "https://images.bthhotels.com/hotel_img/Z21002_n_5.jpg",
+      "room_status": 0,
+      "rm_order_id": 1,
+      "rm_breakfast_type": 2,
+      "room_price": 198
+    }
   ]
 }

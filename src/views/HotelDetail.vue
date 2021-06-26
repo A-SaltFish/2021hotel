@@ -12,6 +12,15 @@
             <span class="icon"><i class="el-icon-s-flag" /></span>
             <span class="icon"><i class="el-icon-cold-drink" /></span>
             <span class="icon"><i class="el-icon-food" /></span>
+            <span class="rate">
+              <el-rate
+                  v-model="hotel.rank"
+                  disabled
+                  show-score
+                  text-color="#ff9900"
+                  score-template="{value}">
+            </el-rate>
+            </span>
           </div>
         </el-main>
         <el-aside class="right" >
@@ -48,6 +57,11 @@
 
     <HR />
 
+    <div class="room-list">
+      <h1>head</h1>
+      <Room v-for="room in rooms" :key="room.room_id" :room="room"/>
+    </div>
+
   </div>
 
 </template>
@@ -55,11 +69,14 @@
 <script>
 import MyHeadBar from "../components/MyHeadBar";
 import axios from "axios";
+import Room from "../components/Room";
+
 export default {
   name: "HotelDetail",
-  components: { MyHeadBar },
+  components: {Room, MyHeadBar },
   modules: {
-    MyHeadBar
+    MyHeadBar,
+    Room
   },
   props: ['hotel_id'],
   data() {
@@ -69,13 +86,18 @@ export default {
     }
   },
   methods: {
-    async fetchHotels(id){
+    async fetchHotel(id){
       const res = await axios.get('/api/hotels?' + new URLSearchParams({hotel_id: id}))
       this.hotel = res.data[0]
+    },
+    async fetchRooms(id) {
+      const res = await axios.get('/api/rooms?' + new URLSearchParams({rm_hotel_id: id}))
+      this.rooms = res.data
     }
   },
   created() {
-    this.fetchHotels(this.hotel_id)
+    this.fetchHotel(this.hotel_id)
+    this.fetchRooms(this.hotel_id)
   }
 }
 </script>
@@ -148,9 +170,17 @@ img {
   object-fit: cover;
 }
 .icon {
-  margin: 5px;
+  margin: 0 20px;
   padding: 2px;
   border: goldenrod 3px;
-  transform: scale(2);
+  transform: scale(1.5);
+}
+.rate {
+  margin: 0 40px;
+  transform: scale(1.5);
+}
+.icons {
+  display: flex;
+
 }
 </style>
