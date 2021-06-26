@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "OrderInfo",
   computed: {
@@ -64,7 +66,7 @@ export default {
   },
   data() {
     return {
-      date:''
+      date: new Date()
     }
   },
   methods: {
@@ -76,10 +78,23 @@ export default {
         const year = currentDate.getFullYear()
         this.date = year + '-' + month + '-' + day
       }
+      else {
+        const day = this.date.getDate()
+        const month = this.date.getMonth() + 1
+        const year = this.date.getFullYear()
+        this.date = year + '-' + month + '-' + day
+      }
     },
-    submitOrder() {
+    async submitOrder() {
       this.dateCheck()
-
+      axios.post('/api/orders', {
+        hotel_id:this.hotel.hotel_id,
+        room_id: this.room.room_id,
+        ctime: this.date,
+        cost: this.room.room_price,
+        status:0,
+        ifshow:1
+      })
     }
   }
 }

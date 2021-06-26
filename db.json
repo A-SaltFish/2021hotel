@@ -88,5 +88,16 @@
       "rm_breakfast_type": 2,
       "room_price": 198
     }
+  ],
+  "orders": [
+    {
+      "hotel_id": 1,
+      "room_id": 1,
+      "ctime": "2021-6-26",
+      "cost": 233,
+      "status": 0,
+      "ifshow": 1,
+      "id": 1
+    }
   ]
 }
