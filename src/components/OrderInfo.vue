@@ -19,7 +19,18 @@
         预订日期：
       </el-col>
       <el-col :span="12">
-        {{createTime}}
+        <div class="select-root">
+          <el-dropdown>
+        <span class="el-dropdown-link">
+          <el-input v-model="date" placeholder="请选择日期"></el-input>
+        </span>
+            <el-dropdown-menu slot="dropdown">
+              <div class="calender">
+                <el-calendar v-model="date"></el-calendar>
+              </div>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </div>
       </el-col>
     </el-row>
     <el-row :gutter="20">
@@ -33,8 +44,8 @@
   </div>
 
   <span slot="footer" class="dialog-footer">
-    <el-button type="danger">取消</el-button>
-    <el-button type="success">确认</el-button>
+    <el-button type="danger" @click="$emit('close-tab')">取消</el-button>
+    <el-button type="success" @click="submitOrder">确认</el-button>
   </span>
 </div>
 </template>
@@ -53,7 +64,22 @@ export default {
   },
   data() {
     return {
-      createTime:""
+      date:''
+    }
+  },
+  methods: {
+    dateCheck() {
+      if(this.date < Date.now() || this.date == '') {
+        let currentDate = new Date()
+        const day = currentDate.getDate()
+        const month = currentDate.getMonth() + 1
+        const year = currentDate.getFullYear()
+        this.date = year + '-' + month + '-' + day
+      }
+    },
+    submitOrder() {
+      this.dateCheck()
+
     }
   }
 }
@@ -88,4 +114,14 @@ export default {
 .el-button {
   margin: 0 20px
 }
+.calender {
+  width: 50vw;
+  height: 40vh;
+  position: center;
+
+}
+.calender el-calender {
+  object-fit: contain;
+}
+
 </style>

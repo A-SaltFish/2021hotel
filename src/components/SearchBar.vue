@@ -11,18 +11,6 @@
                    :value="item.name"></el-option>
       </el-select>
     </div>
-    <div class="select-root">
-      <el-dropdown>
-        <span class="el-dropdown-link">
-          <el-input v-model="date" placeholder="请选择日期"></el-input>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <div class="calender">
-            <el-calendar v-model="date"></el-calendar>
-          </div>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
     <div class="button">
       <el-button type="primary" @click="OnClick">查询</el-button>
     </div>
@@ -37,7 +25,6 @@ export default {
   data() {
     return {
       city: '',
-      date: '',
       citys: []
     }
   },
@@ -47,14 +34,7 @@ export default {
       this.citys = res.data;
     },
   OnClick() {
-      if(this.date < Date.now() || this.date == '') {
-        let currentDate = new Date()
-        const day = currentDate.getDate()
-        const month = currentDate.getMonth() + 1
-        const year = currentDate.getFullYear()
-        this.date = year + '-' + month + '-' + day
-      }
-      this.$emit("search-hotels", this.city, this.date);
+      this.$emit("search-hotels", this.city);
   }
   },
   created() {
@@ -77,12 +57,6 @@ export default {
   color: white;
   align-self: flex-start;
 }
-.calender {
-  width: 50vw;
-  height: 50vh;
-}
-.calender el-calender {
-  object-fit: contain;
-}
+
 
 </style>
