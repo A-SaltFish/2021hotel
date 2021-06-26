@@ -99,5 +99,15 @@
       "ifshow": 1,
       "id": 1
     }
+  ],
+  "customers": [
+    {
+      "username": "123",
+      "password1": "123456",
+      "password2": "123456",
+      "email": "123@qq.com",
+      "tel": "11111111111",
+      "id": 1
+    }
   ]
 }

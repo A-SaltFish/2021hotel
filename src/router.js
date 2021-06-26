@@ -21,6 +21,7 @@ import AdminAdmin from "./views/admin/AdminAdmin";
 import Home from "./views/Home";
 import Index from "./views/Index"
 import HotelDetail from "./views/HotelDetail";
+import CustomerRegister from "./views/customer/CustomerRegister";
 
 Vue.use(VueRouter);
 
@@ -151,6 +152,11 @@ const routes = [
     component: HotelDetail,
     name: "hotelDetail",
     props: true
+  },
+  {
+    path: "/register/customer",
+    component: CustomerRegister,
+    name:"customerRegister",
   }
 ];
 
