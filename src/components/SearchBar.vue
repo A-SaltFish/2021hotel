@@ -12,12 +12,16 @@
       </el-select>
     </div>
     <div class="select-root">
-      <el-select v-model="rank" placeholder="请选择星级（可选）">
-        <el-option v-for="item in ranks"
-                   :key="item"
-                   :label="item"
-                   :value="item"></el-option>
-      </el-select>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          <el-input v-model="date" placeholder="请选择日期"></el-input>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <div class="calender">
+            <el-calendar v-model="date"></el-calendar>
+          </div>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <div class="button">
       <el-button type="primary" @click="OnClick">查询</el-button>
@@ -33,9 +37,8 @@ export default {
   data() {
     return {
       city: '',
-      rank: '',
-      citys: [],
-      ranks: [1, 2, 3, 4, 5]
+      date: '',
+      citys: []
     }
   },
   methods: {
@@ -44,7 +47,14 @@ export default {
       this.citys = res.data;
     },
   OnClick() {
-      this.$emit("search-hotels", this.city);
+      if(this.date < Date.now() || this.date == '') {
+        let currentDate = new Date()
+        const day = currentDate.getDate()
+        const month = currentDate.getMonth() + 1
+        const year = currentDate.getFullYear()
+        this.date = year + '-' + month + '-' + day
+      }
+      this.$emit("search-hotels", this.city, this.date);
   }
   },
   created() {
@@ -67,4 +77,12 @@ export default {
   color: white;
   align-self: flex-start;
 }
+.calender {
+  width: 50vw;
+  height: 50vh;
+}
+.calender el-calender {
+  object-fit: contain;
+}
+
 </style>
