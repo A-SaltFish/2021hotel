@@ -25,13 +25,14 @@
         </el-row>
         <el-row type="flex" justify="center" align="bottom">
           <el-col :span="6">
-            <el-button type="warning" @click="$router.push('/hotel/' + hotel.hotel_id)">预订   ></el-button>
+            <el-button type="warning" @click="$emit('book-hotel', room.room_id)">预订   ></el-button>
           </el-col>
         </el-row>
       </el-aside>
 
     </el-container>
     <HR />
+
   </div>
 
 

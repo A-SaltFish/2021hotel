@@ -58,10 +58,12 @@
     <HR />
 
     <div class="room-list">
-      <h1>head</h1>
-      <Room v-for="room in rooms" :key="room.room_id" :room="room"/>
+      <Room v-for="room in rooms" :key="room.room_id" :room="room" @book-hotel="bookHotel"/>
     </div>
 
+    <el-dialog title="确认订单" :visible.sync="dialogVisable">
+      <OrderInfo :hotel="hotel" :room="bookroom" />
+    </el-dialog>
   </div>
 
 </template>
@@ -70,19 +72,23 @@
 import MyHeadBar from "../components/MyHeadBar";
 import axios from "axios";
 import Room from "../components/Room";
+import OrderInfo from "../components/OrderInfo";
 
 export default {
   name: "HotelDetail",
-  components: {Room, MyHeadBar },
+  components: {OrderInfo, Room, MyHeadBar },
   modules: {
     MyHeadBar,
-    Room
+    Room,
+    OrderInfo
   },
   props: ['hotel_id'],
   data() {
     return {
       rooms: [],
-      hotel:{}
+      hotel:{},
+      dialogVisable: false,
+      bookroom: {}
     }
   },
   methods: {
@@ -93,6 +99,10 @@ export default {
     async fetchRooms(id) {
       const res = await axios.get('/api/rooms?' + new URLSearchParams({rm_hotel_id: id}))
       this.rooms = res.data
+    },
+    bookHotel(room_id) {
+      this.bookroom = this.rooms.filter((room)=>room.room_id === room_id)[0]
+      this.dialogVisable = true
     }
   },
   created() {
