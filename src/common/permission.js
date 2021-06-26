@@ -1,7 +1,7 @@
 let Permission = {};
 
 Permission.no = 0;
-Permission.department = 1;
+Permission.customer = 1;
 Permission.major = 2;
 Permission.class = 4;
 Permission.student = 8;

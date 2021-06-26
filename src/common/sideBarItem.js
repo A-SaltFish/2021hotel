@@ -83,60 +83,32 @@ SideBarItem.items = [
   },
   {
     icon: "el-icon-fa fa-fort-awesome",
-    index: "/admin/department",
-    title: "系管理",
+    index: "/admin/customer",
+    title: "用户管理",
     userType: UserType.admin,
-    permission: Permission.department
+    permission: Permission.customer
   },
   {
     icon: "el-icon-fa fa-graduation-cap",
-    index: "/admin/major",
-    title: "专业管理",
+    index: "/admin/manager",
+    title: "经理管理",
     userType: UserType.admin,
     permission: Permission.major
   },
   {
     icon: "el-icon-fa fa-group",
-    index: "/admin/class",
-    title: "班级管理",
+    index: "/admin/hotel",
+    title: "酒店管理",
     userType: UserType.admin,
     permission: Permission.class
   },
   {
     icon: "el-icon-fa fa-user",
-    index: "/admin/student",
-    title: "学生管理",
+    index: "/admin/order",
+    title: "订单管理",
     userType: UserType.admin,
     permission: Permission.student
   },
-  {
-    icon: "el-icon-fa fa-user-plus",
-    index: "/admin/teacher",
-    title: "教师管理",
-    userType: UserType.admin,
-    permission: Permission.teacher
-  },
-  {
-    icon: "el-icon-fa fa-book",
-    index: "/admin/course",
-    title: "课程管理",
-    userType: UserType.admin,
-    permission: Permission.course
-  },
-  {
-    icon: "el-icon-fa fa-edit",
-    index: "/admin/student/course",
-    title: "选课修改",
-    userType: UserType.admin,
-    permission: Permission.studentCourse
-  },
-  {
-    icon: "el-icon-fa fa-id-badge",
-    index: "/admin/admin",
-    title: "管理员管理",
-    userType: UserType.admin,
-    permission: Permission.admin
-  }
 ];
 
 export default SideBarItem;
