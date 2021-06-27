@@ -2,12 +2,12 @@
   <div class="hotel-root">
     <el-container>
       <el-aside class="img-root" width="200px">
-        <img :src="hotel.img_link" alt="HotelImage" />
+        <img :src="hotel.hotel_img == ''?'../assets/img/logo.png': hotel.hotel_img" alt="HotelImage" />
       </el-aside>
 
       <el-main>
         <el-link class="hotel-name" href="https://element.eleme.io" target="_blank">{{hotel.hotel_name}}</el-link>><br/>
-        <p>地址：{{hotel.ht_city}}</p>
+        <p>地址：{{hotel.ht_city_name}}</p>
         <el-button @click="$emit('update-pos', hotel.hotel_longitude, hotel.hotel_latitude)">
           <i class="el-icon-position"></i>获取定位
         </el-button>
@@ -16,12 +16,12 @@
       <el-aside class="right" >
         <el-row type="flex" class="row-bg" justify="end">
           <el-col :span="6" class="rank">
-            <b>{{hotel.rank}} </b>/5星<br/>
+            <b>{{hotel.hotel_rank}} </b>/5星<br/>
           </el-col>
         </el-row>
         <el-row type="flex" class="row-mid" justify="center">
           <el-col :span="2">¥</el-col>
-          <el-col :span="6"><b>{{hotel.price}}</b></el-col>
+          <el-col :span="6"><b>{{hotel.hotel_min_price}}</b></el-col>
         </el-row>
         <el-row type="flex" justify="center" align="bottom">
           <el-col :span="6">

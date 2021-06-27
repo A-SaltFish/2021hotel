@@ -3,7 +3,7 @@
     {
       "hotel_id": 1,
       "hotel_name": "sdkljfk",
-      "ht_city": "北京",
+      "ht_city_name": "北京",
       "img_link": "https://images.bthhotels.com/hotel_img/Z21002_n_1.jpg",
       "room_img1": "https://images.bthhotels.com/hotel_img/Z21002_n_2.jpg",
       "room_img2": "https://images.bthhotels.com/hotel_img/Z21002_n_3.jpg",
@@ -16,7 +16,7 @@
     {
       "hotel_id": 2,
       "hotel_name": "ddddd",
-      "ht_city": "北京",
+      "ht_city_name": "北京",
       "img_link": "https://images.bthhotels.com/homeinns/021010_a.jpg",
       "rank": 5,
       "price": 328,
@@ -27,7 +27,7 @@
     {
       "hotel_id": 3,
       "hotel_name": "nothere",
-      "ht_city": "chengdu",
+      "ht_city_name": "chengdu",
       "img_link": "../assets/img/hotel2.jpeg",
       "rank": 5,
       "price": 328,
