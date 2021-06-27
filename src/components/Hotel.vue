@@ -2,7 +2,7 @@
   <div class="hotel-root">
     <el-container>
       <el-aside class="img-root" width="200px">
-        <img :src="hotel.hotel_img == ''?'../assets/img/logo.png': hotel.hotel_img" alt="HotelImage" />
+        <img :src="hotel.hotel_img === null ? '../assets/img/logo.png': hotel.hotel_img" alt="HotelImage" />
       </el-aside>
 
       <el-main>
