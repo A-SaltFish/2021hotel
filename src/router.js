@@ -22,6 +22,7 @@ import Home from "./views/Home";
 import Index from "./views/Index"
 import HotelDetail from "./views/HotelDetail";
 import CustomerRegister from "./views/customer/CustomerRegister";
+import ManagerRegister from "./views/manager/ManagerRegister";
 
 Vue.use(VueRouter);
 
@@ -157,6 +158,11 @@ const routes = [
     path: "/register/customer",
     component: CustomerRegister,
     name:"customerRegister",
+  },
+  {
+    path: "/register/manager",
+    name: "managerRegister",
+    component: ManagerRegister
   }
 ];
 
