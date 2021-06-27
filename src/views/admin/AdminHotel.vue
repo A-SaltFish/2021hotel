@@ -108,7 +108,7 @@
 
 <script>
 import * as api from "../../api/admin/class";
-import * as majorApi from "../../api/admin/major";
+import * as majorApi from "../../api/admin/adminManager";
 
 export default {
   name: "AdminClass",

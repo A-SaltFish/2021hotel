@@ -105,7 +105,7 @@
 </template>
 
 <script>
-import * as api from "../../api/admin/customer";
+import * as api from "../../api/admin/adminCustomer";
 
 export default {
   name: "AdminCustomer",
@@ -133,14 +133,14 @@ export default {
   },
   methods: {
     query() {
-      api.getPageCount(this.queryForm.name,this.queryForm.id).then(res => {
+      api.getPageCount(this.queryForm.id,this.queryForm.name).then(res => {
         this.pageCount = res;
         this.pageIndex = 1;
         this.getPage(1);
       });
     },
     getPage(pageIndex) {
-      api.getPage(pageIndex, this.queryForm.name,this.queryForm.id).then(res => {
+      api.getPage(pageIndex, this.queryForm.id,this.queryForm.name).then(res => {
         this.tableData = res;
       });
     },

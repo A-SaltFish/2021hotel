@@ -1,9 +1,9 @@
 <template>
-  <div class="major-wrap">
+  <div class="department-wrap">
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-fa fa-graduation-cap"></i> 专业管理
+          <i class="el-icon-fa fa-fort-awesome"></i> 经理管理
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -12,25 +12,25 @@
       <div class="query-form">
         <el-row :gutter="20">
           <el-col :span="2">
-            <el-button @click="create" icon="el-icon-plus">创建</el-button>
+            <el-button @click="showCreate" icon="el-icon-plus">创建</el-button>
           </el-col>
           <el-col :offset="13" :span="3">
             <el-input
-              @keyup.enter.native="query"
-              placeholder="酒店名"
-              v-model="queryForm.name"
+                    @keyup.enter.native="query"
+                    placeholder="经理ID"
+                    v-model="queryForm.id"
             />
           </el-col>
           <el-col :span="3">
             <el-input
-              @keyup.enter.native="query"
-              placeholder="经理名"
-              v-model="queryForm.departmentName"
+                    @keyup.enter.native="query"
+                    placeholder="经理名"
+                    v-model="queryForm.name"
             />
           </el-col>
           <el-col :span="3">
             <el-button @click="query" icon="el-icon-search" type="primary"
-              >搜索
+            >搜索
             </el-button>
           </el-col>
         </el-row>
@@ -38,56 +38,74 @@
 
       <el-row justify="center" type="flex">
         <el-pagination
-          :current-page.sync="pageIndex"
-          :page-size="pageSize"
-          :total="pageSize * pageCount"
-          @current-change="getPage"
-          background
-          layout="prev, pager, next"
+                :current-page.sync="pageIndex"
+                :page-size="pageSize"
+                :total="pageSize * pageCount"
+                @current-change="getPage"
+                background
+                layout="prev, pager, next"
         >
         </el-pagination>
       </el-row>
 
       <div class="table">
         <el-table :data="tableData" stripe>
-          <el-table-column label="专业Id" prop="id" />
-          <el-table-column label="专业名" prop="name" />
-          <el-table-column label="所属系" prop="departmentName" />
+          <el-table-column label="经理ID" prop="managerId" />
+          <el-table-column label="酒店ID" prop="hotelId" />
+          <el-table-column label="经理姓名">
+            <template slot-scope="scope">
+              <el-popover trigger="hover" placement="top">
+                <p>经理简介:</p><p> {{ scope.row.desc }}</p>
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                </div>
+              </el-popover>
+            </template>
+          </el-table-column>
+          <el-table-column label="经理电话" prop="tel" />
+          <el-table-column label="经理邮箱" prop="email" />
+          <el-table-column label="是否任职" prop="available" />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
-              <el-button @click="edit(scope.row.id)" size="mini" type="success"
-                >编辑
-              </el-button>
               <el-button
-                @click="deleteItem(scope.row.id)"
-                size="mini"
-                type="danger"
-                >删除
+                      @click="deleteItem(scope.row.id)"
+                      size="mini"
+                      type="danger"
+              >删除
               </el-button>
             </template>
           </el-table-column>
         </el-table>
       </div>
 
-      <el-dialog :visible.sync="editing" title="编辑" width="30%">
-        <el-form :model="entityForm" label-width="70px" ref="form">
-          <el-form-item label="专业名">
-            <el-input v-model="entityForm.name"></el-input>
+      <el-dialog :visible.sync="creating" title="编辑" width="30%">
+        <el-form :model="createForm" label-width="70px" ref="form">
+          <el-form-item label="用户名">
+            <el-input v-model="createForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="所属系">
-            <el-select placeholder="请选择系" v-model="entityForm.departmentId">
-              <el-option
-                :key="index"
-                :label="item.name"
-                :value="item.id"
-                v-for="(item, index) in departments"
-              />
-            </el-select>
+          <el-form-item label="用户电话">
+            <el-input v-model="createForm.tel"></el-input>
+          </el-form-item>
+          <el-form-item label="用户邮箱">
+            <el-input v-model="createForm.email"></el-input>
+          </el-form-item>
+          <el-form-item label="性别">
+            <el-radio-group v-model="createForm.sex">
+              <el-radio label="0">保密</el-radio>
+              <el-radio label="1">男性</el-radio>
+              <el-radio label="2">女性</el-radio>
+            </el-radio-group>
+          </el-form-item>
+          <el-form-item label="用户密码">
+            <el-input v-model="createForm.password"></el-input>
+          </el-form-item>
+          <el-form-item label="再次确认">
+            <el-input v-model="createForm.password1"></el-input>
           </el-form-item>
         </el-form>
         <span class="dialog-footer" slot="footer">
-          <el-button @click="save" type="primary">确 定</el-button>
-          <el-button @click="editing = false">取 消</el-button>
+          <el-button @click="create" type="primary">确 定</el-button>
+          <el-button @click="creating = false">取 消</el-button>
         </span>
       </el-dialog>
     </div>
@@ -95,84 +113,84 @@
 </template>
 
 <script>
-import * as api from "../../api/admin/major";
+  import * as api from "../../api/admin/adminManager";
 
-export default {
-  name: "AdminMajor",
-  data() {
-    return {
-      queryForm: {
-        departmentName: "",
-        name: ""
-      },
-      entityForm: {},
-      tableData: [],
-      pageSize: api.pageSize,
-      pageCount: 1,
-      pageIndex: 1,
-      editing: false,
-      departments: []
-    };
-  },
-  methods: {
-    query() {
-      api
-        .getPageCount(this.queryForm.departmentName, this.queryForm.name)
-        .then(res => {
+  export default {
+    name: "AdminManager",
+    data() {
+      return {
+        queryForm: {
+          name: "",
+          id:""
+        },
+        entityForm: {},
+        tableData: [],
+        createForm:{
+          name:"user",
+          tel:"",
+          email:"",
+          sex:"0",
+          password:"123456",
+          password1:"123456",
+        },
+        pageSize: api.pageSize,
+        pageCount: 1,
+        pageIndex: 1,
+        creating: false
+      };
+    },
+    methods: {
+      query() {
+        api.getPageCount(this.queryForm.id,this.queryForm.name).then(res => {
           this.pageCount = res;
           this.pageIndex = 1;
           this.getPage(1);
         });
-    },
-    getPage(pageIndex) {
-      api
-        .getPage(pageIndex, this.queryForm.departmentName, this.queryForm.name)
-        .then(res => {
+      },
+      getPage(pageIndex) {
+        api.getPage(pageIndex, this.queryForm.id,this.queryForm.name).then(res => {
           this.tableData = res;
         });
-    },
-    create() {
-      this.entityForm = {
-        id: -1,
-        name: "",
-        departmentId: ""
-      };
-      this.editing = true;
-    },
-    edit(id) {
-      api.get(id).then(res => {
-        this.entityForm = res;
-        this.editing = true;
-      });
-    },
-    save() {
-      if (this.entityForm.id === -1) {
-        api.create(this.entityForm).then(() => {
-          this.finishSave();
+      },
+      showCreate() {
+        this.entityForm = {};
+        this.creating = true;
+      },
+      create(){
+        this.$confirm('请确认核对用户信息',"提示",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          if(this.createForm.password!==this.createForm.password1){
+            this.$message.success("两次密码不匹配！");
+          }
+          else{
+            api.createCustomer(this.createForm).then((res) => {
+              this.$message.success(res);
+              this.creating = false;
+              this.getPage(1);
+            })
+          }
         });
-      } else {
-        api.update(this.entityForm).then(() => {
-          this.finishSave();
-        });
+      },
+      deleteItem(id) {
+        this.$confirm('确认删除该用户？',"提示此操作不可逆",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          api.deleteItem(id).then(() => {
+            this.$message.success("删除成功");
+            this.getPage(this.pageIndex);
+          });
+        })
       }
     },
-    finishSave() {
-      this.$message.success("成功");
-      this.getPage(this.pageIndex);
-      this.editing = false;
-    },
-    deleteItem(id) {
-      api.deleteItem(id).then(() => {
-        this.$message.success("删除成功");
-        this.getPage(this.pageIndex);
-      });
-    },
-  },
-  created() {
-    this.query();
-    this.getDepartments();
-  }
-};
+    created() {
+      this.query();
+    }
+  };
 </script>
 
 <style scoped></style>
