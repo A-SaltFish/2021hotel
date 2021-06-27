@@ -20,6 +20,7 @@ export const getPage = (index, id,name) =>
     });
 
 
-export const createCustomer = form =>ajax.put("/admin/manager/create",form);
+export const createManager =(managerForm) =>ajax.put("/admin/manager/create/manager",managerForm);
+export const createHotel =(hotelForm) =>ajax.put("/admin/manager/create/hotel",hotelForm);
 
 export const pageSize = 20;

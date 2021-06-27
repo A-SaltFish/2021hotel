@@ -65,44 +65,52 @@
           <el-table-column label="经理电话" prop="tel" />
           <el-table-column label="经理邮箱" prop="email" />
           <el-table-column label="是否任职" prop="available" />
-          <el-table-column align="center" label="操作" width="200px">
-            <template slot-scope="scope">
-              <el-button
-                      @click="deleteItem(scope.row.id)"
-                      size="mini"
-                      type="danger"
-              >删除
-              </el-button>
-            </template>
-          </el-table-column>
         </el-table>
       </div>
 
       <el-dialog :visible.sync="creating" title="编辑" width="30%">
-        <el-form :model="createForm" label-width="70px" ref="form">
-          <el-form-item label="用户名">
-            <el-input v-model="createForm.name"></el-input>
-          </el-form-item>
-          <el-form-item label="用户电话">
-            <el-input v-model="createForm.tel"></el-input>
-          </el-form-item>
-          <el-form-item label="用户邮箱">
-            <el-input v-model="createForm.email"></el-input>
-          </el-form-item>
-          <el-form-item label="性别">
-            <el-radio-group v-model="createForm.sex">
-              <el-radio label="0">保密</el-radio>
-              <el-radio label="1">男性</el-radio>
-              <el-radio label="2">女性</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="用户密码">
-            <el-input v-model="createForm.password"></el-input>
-          </el-form-item>
-          <el-form-item label="再次确认">
-            <el-input v-model="createForm.password1"></el-input>
-          </el-form-item>
-        </el-form>
+        <template>
+          <el-tabs v-model="activeName">
+            <el-tab-pane label="经理表单" name="first">
+              <el-form :model="managerForm" label-width="70px" ref="form">
+                <el-form-item label="经理名称">
+                  <el-input v-model="managerForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="经理电话">
+                  <el-input v-model="managerForm.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="经理邮箱">
+                  <el-input v-model="managerForm.email"></el-input>
+                </el-form-item>
+                <el-form-item label="经理密码">
+                  <el-input v-model="managerForm.password"></el-input>
+                </el-form-item>
+                <el-form-item label="再次确认">
+                  <el-input v-model="managerForm.password1"></el-input>
+                </el-form-item>
+              </el-form>
+            </el-tab-pane>
+            <el-tab-pane label="酒店表单" name="second">
+              <el-form :model="hotelForm" label-width="70px" ref="form">
+                <el-form-item label="酒店名称">
+                  <el-input v-model="hotelForm.name"></el-input>
+                </el-form-item>
+                <el-form-item label="售后电话">
+                  <el-input v-model="hotelForm.tel"></el-input>
+                </el-form-item>
+                <el-form-item label="酒店描述">
+                  <el-input type="textarea" v-model="hotelForm.desc"></el-input>
+                </el-form-item>
+                <el-form-item label="城市所在">
+                  <el-input v-model="hotelForm.city"></el-input>
+                </el-form-item>
+                <el-form-item label="最低价格">
+                  <el-input v-model="hotelForm.minprice"></el-input>
+                </el-form-item>
+              </el-form>
+            </el-tab-pane>
+          </el-tabs>
+        </template>
         <span class="dialog-footer" slot="footer">
           <el-button @click="create" type="primary">确 定</el-button>
           <el-button @click="creating = false">取 消</el-button>
@@ -125,18 +133,27 @@
         },
         entityForm: {},
         tableData: [],
-        createForm:{
-          name:"user",
+        //经理表单
+        managerForm:{
+          name:"manager",
           tel:"",
           email:"",
-          sex:"0",
           password:"123456",
           password1:"123456",
+        },
+        //酒店表单
+        hotelForm:{
+          name:"hotel",
+          tel:"",
+          desc:"这是一个普通的酒店",
+          city:"成都",
+          minprice:"100",
         },
         pageSize: api.pageSize,
         pageCount: 1,
         pageIndex: 1,
-        creating: false
+        creating: false,
+        activeName: 'first'
       };
     },
     methods: {
@@ -162,14 +179,17 @@
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          if(this.createForm.password!==this.createForm.password1){
-            this.$message.success("两次密码不匹配！");
+          if(this.managerForm.password!==this.managerForm.password1){
+            this.$message.success("经理两次密码不匹配！");
           }
           else{
-            api.createCustomer(this.createForm).then((res) => {
+            api.createManager(this.managerForm).then((res) => {
               this.$message.success(res);
-              this.creating = false;
-              this.getPage(1);
+              api.createHotel(this.hotelForm).then(()=>{
+                this.$message.success(res);
+                this.creating = false;
+                this.getPage(1);
+              })
             })
           }
         });
