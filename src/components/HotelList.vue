@@ -31,8 +31,7 @@ export default {
     }
   },
   methods: {
-    mapHandler({BMap, map}) {
-      console.log(BMap, map)
+    mapHandler() {
       this.mapCenter.lng = 116.404
       this.mapCenter.lat = 39.915
       this.mapZoom = 16

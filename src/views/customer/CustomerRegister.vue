@@ -10,14 +10,22 @@
           ref="form"
       >
         <el-form-item prop="username">
-          <el-input placeholder="请输入用户名，长度不超过20个字符" v-model="formData.username">
+          <el-input placeholder="请输入用户名，长度不超过20个字符" v-model="formData.customer_name">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
         </el-form-item>
 
         <el-form-item prop="email">
-          <el-input placeholder="请输入您的邮箱" v-model="formData.email">
+          <el-input placeholder="请输入您的邮箱" v-model="formData.customer_email">
             <span slot="prepend"><i class="el-icon-user"></i></span>
+          </el-input>
+
+          <el-button type="primary" @click="sendVerCode" >发送验证码</el-button>
+        </el-form-item>
+
+        <el-form-item prop="notNull">
+          <el-input placeholder="请输入邮箱验证码" v-model="formData.code">
+            <span slot="prepend"><i class="el-icon-info"></i></span>
           </el-input>
         </el-form-item>
 
@@ -25,7 +33,7 @@
           <el-input
               placeholder="请输入密码"
               type="password"
-              v-model="formData.password1"
+              v-model="formData.customer_password"
           >
             <span slot="prepend"><i class="el-icon-edit"></i></span>
           </el-input>
@@ -42,7 +50,7 @@
         </el-form-item>
 
         <el-form-item prop="tel">
-          <el-input placeholder="请输入您的手机号" v-model="formData.tel">
+          <el-input placeholder="请输入您的手机号" v-model="formData.customer_tel">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
         </el-form-item>
@@ -66,7 +74,7 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
-        if (this.formData.password2 !== '') {
+        if (this.password2 !== '') {
           this.$refs.form.validateField('password2');
         }
         callback();
@@ -75,19 +83,20 @@ export default {
     var validatePass2 = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请再次输入密码'));
-      } else if (value !== this.formData.password1) {
+      } else if (value !== this.formData.customer_password) {
         callback(new Error('两次输入密码不一致!'));
       } else {
         callback();
       }
     };
     return {
+      password2:"",
       formData:{
-        username: "",
-        password1: "",
-        password2: "",
-        email: "",
-        tel: ""
+        customer_name: "",
+        customer_password: "",
+        customer_email: "",
+        customer_tel: "",
+        code:""
       },
       rules: {
         username: [
@@ -110,13 +119,18 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          axios.post('/api/customers', this.formData)
+          axios.post('/api/regist', this.formData)
           .then(res => {
-            this.$message.success("注册成功: " + res.username);
+            this.$message.success("注册成功: " + res.customer_name);
             this.$router.push({ name: "login" });
           });
         }
       });
+    },
+    sendVerCode() {
+      axios.post('/api/sendEmail', {
+        customer_email:this.formData.customer_email
+      })
     }
   }
 }
