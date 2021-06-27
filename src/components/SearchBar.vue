@@ -6,7 +6,7 @@
     <div class="select-root">
       <el-select v-model="city" placeholder="请选择城市">
         <el-option v-for="item in citys"
-                   :key="item.id"
+                   :key="item.name"
                    :label="item.name"
                    :value="item.name"></el-option>
       </el-select>
@@ -18,27 +18,23 @@
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   name: "SearchBar",
   data() {
     return {
       city: '',
-      citys: []
+      citys: [
+        {name:"成都"},
+        {name: "北京"},
+        {name: "上海"}
+      ]
     }
   },
   methods: {
-    async fetchCitys() {
-      const res = await axios.get("/api/citys");
-      this.citys = res.data;
-    },
   OnClick() {
       this.$emit("search-hotels", this.city);
   }
-  },
-  created() {
-    this.fetchCitys();
   }
 };
 </script>
