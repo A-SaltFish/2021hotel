@@ -17,14 +17,14 @@
           <el-col :offset="13" :span="3">
             <el-input
               @keyup.enter.native="query"
-              placeholder="专业名"
+              placeholder="酒店名"
               v-model="queryForm.name"
             />
           </el-col>
           <el-col :span="3">
             <el-input
               @keyup.enter.native="query"
-              placeholder="系名"
+              placeholder="经理名"
               v-model="queryForm.departmentName"
             />
           </el-col>
@@ -96,7 +96,6 @@
 
 <script>
 import * as api from "../../api/admin/major";
-import * as departmentApi from "../../api/admin/department";
 
 export default {
   name: "AdminMajor",
@@ -168,11 +167,6 @@ export default {
         this.getPage(this.pageIndex);
       });
     },
-    getDepartments() {
-      departmentApi.listName().then(res => {
-        this.departments = res;
-      });
-    }
   },
   created() {
     this.query();
