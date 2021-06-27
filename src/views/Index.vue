@@ -30,7 +30,7 @@ export default {
   },
   methods:{
     async fetchHotels(city){
-      const res = await axios.get('/api/hotels?' + new URLSearchParams({ht_city: city}))
+      const res = await axios.get('/api/hotels?' + new URLSearchParams({ht_city_name: city}))
       this.hotels = res.data
     }
   }
