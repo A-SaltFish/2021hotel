@@ -1,7 +1,8 @@
 <template>
   <div class="login-wrap">
+    <MyHeadBar />
     <div class="login-form">
-      <div class="form-title">课程管理系统</div>
+      <div class="form-title">欢迎使用SCU_Hotel</div>
       <el-form
         :model="formData"
         :rules="rules"
@@ -10,7 +11,7 @@
         ref="form"
       >
         <el-form-item prop="username">
-          <el-input placeholder="学号/工号/用户名" v-model="formData.username">
+          <el-input placeholder="请输入邮箱" v-model="formData.username">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
         </el-form-item>
@@ -44,8 +45,10 @@
 
 <script>
 import { login } from "../api/user";
+import MyHeadBar from "../components/MyHeadBar";
 
 export default {
+  components: {MyHeadBar},
   data: function() {
     return {
       formData: {
@@ -75,7 +78,7 @@ export default {
           ).then(res => {
             this.$message.success("登录成功: " + res.username);
             this.$store.commit("login", res);
-            this.$router.push({ name: "container" });
+            this.$router.push({ name: "index" });
           });
         }
       });

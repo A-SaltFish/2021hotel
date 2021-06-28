@@ -24,10 +24,8 @@
         <span class="el-dropdown-link">
           <el-input v-model="date" placeholder="请选择日期"></el-input>
         </span>
-            <el-dropdown-menu slot="dropdown">
-              <div class="calender">
-                <el-calendar v-model="date"></el-calendar>
-              </div>
+            <el-dropdown-menu slot="dropdown" class="calenderContainer">
+                <el-calendar v-model="date" class="calender"></el-calendar>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -129,11 +127,28 @@ export default {
 .el-button {
   margin: 0 20px
 }
-.calender {
+.calenderContainer {
   width: 50vw;
   height: 40vh;
-  position: center;
-
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  overflow: scroll;
+}
+.calender {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.login-form {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 350px;
+  margin: -190px 0 0 -175px;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
 }
 .calender el-calender {
   object-fit: contain;
