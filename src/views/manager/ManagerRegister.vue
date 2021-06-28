@@ -9,8 +9,8 @@
           label-width="0px"
           ref="form"
       >
-        <el-form-item prop="manager_name">
-          <el-input placeholder="请输入用户名，长度不超过20个字符" v-model="formData.manager_name">
+        <el-form-item prop="name">
+          <el-input placeholder="请输入用户名，长度不超过20个字符" v-model="formData.name">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
         </el-form-item>
@@ -21,11 +21,11 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item prop="password1">
+        <el-form-item prop="password">
           <el-input
               placeholder="请输入密码"
               type="password"
-              v-model="formData.password1"
+              v-model="formData.password"
           >
             <span slot="prepend"><i class="el-icon-edit"></i></span>
           </el-input>
@@ -35,7 +35,7 @@
           <el-input
               placeholder="请再次输入密码"
               type="password"
-              v-model="formData.password2"
+              v-model="password2"
           >
             <span slot="prepend"><i class="el-icon-edit"></i></span>
           </el-input>
@@ -48,31 +48,31 @@
         </el-form-item>
 
         <el-form-item prop="hotel_name">
-          <el-input placeholder="请输入您的酒店名称" v-model="formData.hotel_name">
+          <el-input placeholder="请输入您的酒店名称" v-model="hotelData.name">
             <span slot="prepend"><i class="el-icon-house"></i></span>
           </el-input>
         </el-form-item>
 
         <el-form-item prop="tel">
-          <el-input placeholder="请输入酒店售后电话" v-model="formData.hotel_tel">
+          <el-input placeholder="请输入酒店售后电话" v-model="hotelData.tel">
             <span slot="prepend"><i class="el-icon-phone"></i></span>
           </el-input>
         </el-form-item>
 
         <el-form-item prop="hotel_describe">
-          <el-input placeholder="请输入酒店简介" v-model="formData.hotel_describe">
+          <el-input placeholder="请输入酒店简介" v-model="hotelData.desc">
             <span slot="prepend"><i class="el-icon-info"></i></span>
           </el-input>
         </el-form-item>
 
-        <el-form-item prop="notNull">
-          <el-input placeholder="请输入酒店所在城市" v-model="formData.ht_city_name">
+        <el-form-item >
+          <el-input placeholder="请输入酒店所在城市" v-model="hotelData.city">
             <span slot="prepend"><i class="el-icon-position"></i></span>
           </el-input>
         </el-form-item>
 
-        <el-form-item prop="notNull">
-          <el-input placeholder="请输入酒店推荐入住价格" v-model="formData.hotel_min_price">
+        <el-form-item>
+          <el-input placeholder="请输入酒店推荐入住价格" v-model="hotelData.minprice">
             <span slot="prepend"><i class="el-icon-money"></i></span>
           </el-input>
         </el-form-item>
@@ -95,43 +95,30 @@ export default {
       if (value === '') {
         callback(new Error('请输入密码'));
       } else {
-        if (this.password2 !== '') {
-          this.$refs.form.validateField('password2');
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error('请再次输入密码'));
-      } else if (value !== this.formData.password1) {
-        callback(new Error('两次输入密码不一致!'));
-      } else {
         callback();
       }
     };
     return {
       password2: "",
       formData:{
-        manager_name: "",
-        password1: "",
+        name: "",
+        password: "",
         email: "",
         tel: "",
-        hotel_name: "",
-        hotel_tel: "",
-        hotel_describe: "",
-        ht_city_name: "",
-        hotel_min_price: ""
+      },
+      hotelData: {
+        name: "",
+        tel: "",
+        desc: "",
+        city: "",
+        minprice: ""
       },
       rules: {
-        manager_name: [
+        name: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
-        password1: [
+        password: [
           { validator: validatePass, trigger: 'blur' }
-        ],
-        password2: [
-          { validator: validatePass2, trigger: 'blur' }
         ],
         tel: [
           { required: true, message: "请输入手机号", trigger: "blur" },
@@ -147,10 +134,13 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          axios.post('/api/managers', this.formData)
-              .then(res => {
-                this.$message.success("注册成功: " + res.manager_name);
-                this.$router.push({ name: "login" });
+          axios.put('/api/admin/manager/create/manager', this.formData)
+              .then((res) => {
+                this.$message(res.data);
+                axios.put('/api/admin/manager/create/hotel?',this.hotelData)
+                        .then((res) => {
+                          this.$message(res.data);
+                          this.$router.push('/login')});
               });
         }
       });
