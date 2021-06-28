@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import * as api from "../../api/customer/info";
+import * as api from "../../api/student/info";
 
 export default {
   name: "StudentInfo",

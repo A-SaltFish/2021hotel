@@ -3,7 +3,7 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-fa fa-edit"></i> 当前订单
+          <i class="el-icon-fa fa-edit"></i> 学生课程
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import * as api from "../../api/customer/preOrder";
+import * as api from "../../api/student/preOrder";
 
 export default {
   name: "StudentCourse",

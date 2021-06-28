@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import * as api from "../../api/customer/customerOrderSelect";
+import * as api from "../../api/student/customerOrderSelect";
 
 export default {
   name: "customerOrderSelect",
