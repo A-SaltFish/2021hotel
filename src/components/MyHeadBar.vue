@@ -13,9 +13,8 @@
         <h2>SCU_Hotel</h2>
       </div>
       <el-menu-item index="1">酒店预订</el-menu-item>
-      <el-menu-item index="2" disabled>消息中心</el-menu-item>
-      <el-menu-item index="3"
-      ><router-link to="/" >订单管理</router-link></el-menu-item>
+      <el-menu-item index="2" ><router-link to="/register/customer">顾客注册</router-link>></el-menu-item>
+      <el-menu-item index="3" ><router-link to="/register/manager">经理注册</router-link>></el-menu-item>
       <el-menu-item index="4"><router-link to="/about">关于我们</router-link> </el-menu-item>
 
       <div class="login">

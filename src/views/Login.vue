@@ -89,7 +89,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-image: url("../assets/login-background.jpg");
+  background-image: url("../assets/img/register_background.jpeg");
   background-size: 100% 100%;
 }
 
