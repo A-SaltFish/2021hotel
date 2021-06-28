@@ -95,20 +95,6 @@ SideBarItem.items = [
     userType: UserType.admin,
     permission: Permission.major
   },
-  {
-    icon: "el-icon-fa fa-group",
-    index: "/admin/hotel",
-    title: "酒店管理",
-    userType: UserType.admin,
-    permission: Permission.class
-  },
-  {
-    icon: "el-icon-fa fa-user",
-    index: "/admin/order",
-    title: "订单管理",
-    userType: UserType.admin,
-    permission: Permission.student
-  },
 ];
 
 export default SideBarItem;

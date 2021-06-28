@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       entityForm: {
-        number: "",
+        id: "",
         name: "",
         tel: "",
         email: "",

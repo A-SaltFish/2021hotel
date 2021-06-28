@@ -3,10 +3,43 @@
     <div class="crumbs">
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>
-          <i class="el-icon-fa fa-edit"></i> 学生课程
+          <i class="el-icon-fa fa-edit"></i> 当前订单
         </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
+
+    <el-dialog :visible.sync="refunding" title="编辑" width="30%">
+      <el-form :model="refundTable" label-width="70px" ref="form">
+        <el-form-item label="订单Id">
+          <el-input v-model="refundTable.id" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="退单理由">
+          <el-input type="textarea" v-model="refundTable.reason"></el-input>
+        </el-form-item>
+      </el-form>
+      <span class="dialog-footer" slot="footer">
+          <el-button @click="refund()" type="primary">确 定</el-button>
+          <el-button @click="refunding = false">取 消</el-button>
+        </span>
+    </el-dialog>
+
+    <el-dialog :visible.sync="commiting" title="编辑" width="30%">
+      <el-form :model="remarkTable" label-width="70px" ref="form">
+        <el-form-item label="订单Id">
+          <el-input v-model="remarkTable.id" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="评价订单">
+          <el-input type="textarea" v-model="remarkTable.comment"></el-input>
+        </el-form-item>
+        <el-form-item label="服务评级">
+          <el-rate v-model="remarkTable.rank" show-text></el-rate>
+        </el-form-item>
+      </el-form>
+      <span class="dialog-footer" slot="footer">
+          <el-button @click="comment()" type="primary">确 定</el-button>
+          <el-button @click="commiting = false">取 消</el-button>
+        </span>
+    </el-dialog>
 
     <div class="container">
       <div class="table">
@@ -31,7 +64,7 @@
                     </el-form>
                   </div>
                   <el-button type="primary" plain @click="pay(odata.id)" style="margin-left: 20%">前往支付</el-button>
-                  <el-button type="danger" plain @click="refund(odata.id)" style="margin-left: 20%">取消订单</el-button>
+                  <el-button type="danger" plain @click="cancel(odata.id)" style="margin-left: 20%">取消订单</el-button>
                 </el-collapse-item>
               </div>
             </el-collapse>
@@ -55,7 +88,9 @@
                         </el-form-item>
                       </el-form>
                     </div>
+                  <el-button type="danger" plain @click="showRefund(odata.id)" style="margin-left: 40%">申请退单</el-button>
                 </el-collapse-item>
+
               </div>
             </el-collapse>
           </el-collapse-item>
@@ -78,6 +113,7 @@
                       </el-form-item>
                     </el-form>
                   </div>
+                  <el-button type="primary" plain @click="showComment(odata.id)" style="margin-left: 40%">进行评价</el-button>
                 </el-collapse-item>
               </div>
             </el-collapse>
@@ -102,6 +138,17 @@ export default {
       commentOrder:"1",
       //控制大折叠
       activeOrder:"1",
+      refunding:false,
+      commiting:false,
+      refundTable:{
+        id:"",
+        reason:"",
+      },
+      remarkTable:{
+        id:"",
+        comment:"",
+        rank:0,
+      },
       orderLabel: [
         {tindex:"hotelName",
           tname:"酒店名称："
@@ -125,6 +172,14 @@ export default {
     };
   },
   methods: {
+    showRefund(id){
+      this.refunding=true;
+      this.refundTable.id=id;
+    },
+    showComment(id){
+      this.commiting=true;
+      this.remarkTable.id=id;
+    },
     getList() {
       api.list().then(res => {
         this.tableData = res;
@@ -155,15 +210,15 @@ export default {
     },
     pay(orderId){
       alert("前往支付订单号为"+orderId+"的订单？");
-      alert("哎嘿，假的，支付功能还没做哦~");
+      alert("欸嘿，暂无支付功能~");
     },
-    refund(orderId) {
+    cancel(orderId) {
       this.$confirm('您真的要取消单号为:'+orderId+'的订单吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        api.refund(orderId).then(() => {
+        api.cancel(orderId).then(() => {
           this.$message({
             type: 'success',
             message: '退单成功！!'
@@ -176,6 +231,32 @@ export default {
           message: '退单取消！'
         });
       });
+    },
+    refund() {
+      this.$confirm('您真的要申请退款单号为:'+this.refundTable.id+'的订单吗?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        api.refund(this.refundTable.id,this.refundTable.reason).then(() => {
+          this.$message({
+            type: 'success',
+            message: '申请成功！!'
+          });
+          this.getList();
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '申请失败！'
+        });
+      });
+    },
+    comment() {
+      api.remark(this.remarkTable.id,this.remarkTable.comment,this.remarkTable.rank).then((res) => {
+        this.$message(res);
+        this.getList();
+      })
     }
   },
   created() {
