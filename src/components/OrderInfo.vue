@@ -101,7 +101,8 @@ export default {
         customerId: this.userId,
         ctime: this.date,
         status:0,
-        ifShow:1
+        ifShow:1,
+        order_cost: this.room.room_price
       })).then(()=>{
         alert("预定成功！请前往当前订单页面确认订单信息！");
         this.$router.push('/')
