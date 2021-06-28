@@ -64,9 +64,6 @@
           <el-table-column label="所属专业" prop="majorName" />
           <el-table-column align="center" label="操作" width="200px">
             <template slot-scope="scope">
-              <el-button @click="edit(scope.row.id)" size="mini" type="success"
-                >编辑
-              </el-button>
               <el-button
                 @click="deleteItem(scope.row.id)"
                 size="mini"

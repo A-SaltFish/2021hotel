@@ -65,6 +65,16 @@
           <el-table-column label="经理电话" prop="tel" />
           <el-table-column label="经理邮箱" prop="email" />
           <el-table-column label="是否任职" prop="available" />
+          <el-table-column align="center" label="操作" width="200px">
+            <template slot-scope="scope">
+              <el-button @click="passManager(scope.row.managerId,scope.row.available)" size="mini" type="primary">
+                任职
+              </el-button>
+              <el-button @click="deleteItem(scope.row.managerId)" size="mini" type="danger">
+                删除
+              </el-button>
+            </template>
+          </el-table-column>
         </el-table>
       </div>
 
@@ -167,6 +177,12 @@
       getPage(pageIndex) {
         api.getPage(pageIndex, this.queryForm.id,this.queryForm.name).then(res => {
           this.tableData = res;
+          for(let i=0;i<res.length;i++){
+            if(this.tableData[i].available===1){
+              this.tableData[i].available="是";
+            }
+            else this.tableData[i].available="否";
+          }
         });
       },
       showCreate() {
@@ -185,7 +201,7 @@
           else{
             api.createManager(this.managerForm).then((res) => {
               this.$message.success(res);
-              api.createHotel(this.hotelForm).then(()=>{
+              api.createHotel(this.hotelForm).then((res)=>{
                 this.$message.success(res);
                 this.creating = false;
                 this.getPage(1);
@@ -194,14 +210,32 @@
           }
         });
       },
-      deleteItem(id) {
-        this.$confirm('确认删除该用户？',"提示此操作不可逆",{
+      passManager(id,available) {
+        this.$confirm('是否允许该经理以及其酒店上架？',"提示",{
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'info'
         }).then(() => {
-          api.deleteItem(id).then(() => {
-            this.$message.success("删除成功");
+          if(available==="是"){
+            this.$message("该经理已通过审批");
+          }
+          else{
+            api.passManager(id).then((res) => {
+              this.$message.success(res);
+              this.getPage(this.pageIndex);
+            });
+          }
+        })
+      },
+      deleteItem(id) {
+        this.$confirm('确认删除该经理与经理所对应的酒店？',"提示此操作不可逆",{
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          alert(id);
+          api.deleteItem(id).then((res) => {
+            this.$message.success(res);
             this.getPage(this.pageIndex);
           });
         })
