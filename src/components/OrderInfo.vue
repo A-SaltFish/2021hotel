@@ -54,6 +54,12 @@ import axios from "axios";
 export default {
   name: "OrderInfo",
   computed: {
+    isLoggedin() {
+      return this.$store.state.status.loggedIn;
+    },
+    userId() {
+      return this.$store.state.status.userId;
+    },
     username() {
       return this.$store.state.status.username;
     }
@@ -75,6 +81,7 @@ export default {
         const month = currentDate.getMonth() + 1
         const year = currentDate.getFullYear()
         this.date = year + '-' + month + '-' + day
+        this.date = new Date(this.date)
       }
       else {
         const day = this.date.getDate()
@@ -85,14 +92,21 @@ export default {
     },
     async submitOrder() {
       this.dateCheck()
-      axios.post('/api/orders', {
-        hotel_id:this.hotel.hotel_id,
-        room_id: this.room.room_id,
+      if (this.isLoggedin === false) {
+        this.$router.push('/login')
+      }
+      axios.get('/api/order?' + new URLSearchParams( {
+        hotelId:this.hotel.hotel_id,
+        roomId: this.room.room_id,
+        customerId: this.userId,
         ctime: this.date,
-        cost: this.room.room_price,
         status:0,
-        ifshow:1
-      })
+        ifShow:1
+      })).then(()=>{
+        alert("预定成功！请前往当前订单页面确认订单信息！");
+        this.$router.push('/')
+      }
+    )
     }
   }
 }

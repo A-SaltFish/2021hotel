@@ -11,7 +11,7 @@
         ref="form"
       >
         <el-form-item prop="username">
-          <el-input placeholder="请输入邮箱" v-model="formData.username">
+          <el-input placeholder="请输入用户邮箱" v-model="formData.username">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
         </el-form-item>
