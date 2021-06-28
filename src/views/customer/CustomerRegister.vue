@@ -17,9 +17,17 @@
 
         <el-form-item prop="email">
           <el-input placeholder="请输入您的邮箱" v-model="formData.customer_email">
-            <span slot="prepend"><i class="el-icon-user"></i></span>
+            <span slot="prepend"><i class="el-icon-info"></i></span>
           </el-input>
+
+            <el-button class="vercodeButton" type="primary" @click="sendVerCode">发送验证码</el-button>
         </el-form-item>
+
+          <el-form-item>
+              <el-input placeholder="请输入邮箱验证码" v-model="formData.code">
+                  <span slot="prepend"><i class="el-icon-info"></i></span>
+              </el-input>
+          </el-form-item>
 
         <el-form-item prop="password1">
           <el-input
@@ -27,7 +35,7 @@
               type="password"
               v-model="formData.customer_password"
           >
-            <span slot="prepend"><i class="el-icon-edit"></i></span>
+            <span slot="prepend"><i class="el-icon-key"></i></span>
           </el-input>
         </el-form-item>
 
@@ -37,13 +45,13 @@
               type="password"
               v-model="formData.password2"
           >
-            <span slot="prepend"><i class="el-icon-edit"></i></span>
+            <span slot="prepend"><i class="el-icon-key"></i></span>
           </el-input>
         </el-form-item>
 
         <el-form-item prop="customer_tel">
           <el-input placeholder="请输入您的手机号" v-model="formData.customer_tel">
-            <span slot="prepend"><i class="el-icon-user"></i></span>
+            <span slot="prepend"><i class="el-icon-phone"></i></span>
           </el-input>
         </el-form-item>
 
@@ -111,14 +119,19 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          axios.post('/api/register?' + new URLSearchParams(this.formData) )
+          axios.post('/api/regist?' + new URLSearchParams(this.formData) )
           .then(() => {
             this.$message.success("注册成功: " + this.formData.customer_name);
             this.$router.push({ name: "login" });
           });
         }
       });
-    }
+    },
+      sendVerCode() {
+        axios.post('/api/sendEmail?' + new URLSearchParams({customer_email: this.formData.customer_email})).then(
+            (res) => { this.$message.success(res.data) }
+        )
+      }
   }
 }
 </script>
