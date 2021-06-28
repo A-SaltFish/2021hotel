@@ -9,7 +9,7 @@
           label-width="0px"
           ref="form"
       >
-        <el-form-item prop="username">
+        <el-form-item prop="customer_name">
           <el-input placeholder="请输入用户名，长度不超过20个字符" v-model="formData.customer_name">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
@@ -18,14 +18,6 @@
         <el-form-item prop="email">
           <el-input placeholder="请输入您的邮箱" v-model="formData.customer_email">
             <span slot="prepend"><i class="el-icon-user"></i></span>
-          </el-input>
-
-          <el-button type="primary" @click="sendVerCode" >发送验证码</el-button>
-        </el-form-item>
-
-        <el-form-item prop="notNull">
-          <el-input placeholder="请输入邮箱验证码" v-model="formData.code">
-            <span slot="prepend"><i class="el-icon-info"></i></span>
           </el-input>
         </el-form-item>
 
@@ -49,7 +41,7 @@
           </el-input>
         </el-form-item>
 
-        <el-form-item prop="tel">
+        <el-form-item prop="customer_tel">
           <el-input placeholder="请输入您的手机号" v-model="formData.customer_tel">
             <span slot="prepend"><i class="el-icon-user"></i></span>
           </el-input>
@@ -99,7 +91,7 @@ export default {
         code:""
       },
       rules: {
-        username: [
+        customer_name: [
           { required: true, message: "请输入用户名", trigger: "blur" }
         ],
         password1: [
@@ -108,7 +100,7 @@ export default {
         password2: [
           { validator: validatePass2, trigger: 'blur' }
         ],
-        tel: [
+        customer_tel: [
           { required: true, message: "请输入手机号", trigger: "blur" },
           { min: 11, max: 11, message: "手机号位数必须为11位！", trigger: "blur"}
         ]
@@ -119,18 +111,13 @@ export default {
     submit() {
       this.$refs.form.validate(valid => {
         if (valid) {
-          axios.post('/api/regist', this.formData)
-          .then(res => {
-            this.$message.success("注册成功: " + res.customer_name);
+          axios.post('/api/register?' + new URLSearchParams(this.formData) )
+          .then(() => {
+            this.$message.success("注册成功: " + this.formData.customer_name);
             this.$router.push({ name: "login" });
           });
         }
       });
-    },
-    sendVerCode() {
-      axios.post('/api/sendEmail', {
-        customer_email:this.formData.customer_email
-      })
     }
   }
 }
@@ -177,5 +164,7 @@ export default {
   width: 100%;
   height: 36px;
 }
-
+.vercodeButton {
+  width: 100%;
+}
 </style>
