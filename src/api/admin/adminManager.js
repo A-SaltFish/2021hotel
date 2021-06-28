@@ -1,9 +1,14 @@
 import * as ajax from "../../common/ajax";
 
 
-export const deleteItem = id => ajax.get("/admin/manager/delete" ,{
-    customerId:id
+export const deleteItem = managerId => ajax.get("/admin/manager/delete" ,{
+    managerId:managerId
 });
+
+export const passManager = managerId => ajax.get("/admin/manager/pass" ,{
+    managerId:managerId
+});
+
 
 export const update = entity => ajax.put("/admin/manager", entity);
 

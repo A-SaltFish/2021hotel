@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 >欢迎使用课程管理系统</h2>
+    <h2 >欢迎使用酒店辅助订购系统</h2>
     <li>
       前后端分离，前端vue，后端springboot+mybatis
     </li>
