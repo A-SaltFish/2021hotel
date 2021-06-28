@@ -45,10 +45,10 @@
         <el-main class="img-right">
           <div class="img-l1">
             <div class="img-container0">
-              <img :src="hotel.room_img1" alt="room img1" />
+              <img src="https://images.bthhotels.com/hotel_img/TY0002_n_4.jpg" alt="room img1" />
             </div>
             <div class="img-container1">
-              <img :src="hotel.room_img2" alt="room img2" />
+              <img src="https://images.bthhotels.com/hotel_img/TY0002_n_6.jpg" alt="room img2" />
             </div>
           </div>
         </el-main>
