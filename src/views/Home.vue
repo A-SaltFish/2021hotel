@@ -2,11 +2,11 @@
   <div>
     <h2 >欢迎使用酒店辅助订购系统</h2>
     <li>
-      前后端分离，前端vue，后端springboot+mybatis
+      四川大学 2018级
     </li>
     <br>
     <li>
-      环境：jdk1.8、idea、maven、mysql5
+      SCU Hotel
     </li>
   </div>
 

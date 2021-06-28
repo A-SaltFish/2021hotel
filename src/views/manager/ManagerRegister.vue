@@ -1,5 +1,6 @@
 <template>
   <div class="login-wrap">
+    <MyHeadBar />
     <div class="login-form">
       <div class="form-title">酒店经理注册</div>
       <el-form
@@ -87,9 +88,11 @@
 
 <script>
 import axios from "axios";
+import MyHeadBar from "../../components/MyHeadBar";
 
 export default {
   name: "ManagerRegister",
+  components: {MyHeadBar},
   data() {
     var validatePass = (rule, value, callback) => {
       if (value === '') {
